@@ -113,15 +113,16 @@ button:hover {
 #newProductForm {
     width: 300px; 
     font-family: "Simplicity";
-    padding: 10px 10px;
+    padding: 30px 10px;
     position: absolute; 
     background-color: #DDDDDD; 
     border-radius: 6px;
+    justify-content: center; 
     display: none; 
-    align-self: center;
     flex-direction: column; 
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
+    left: 40%
+   
 }
 
 #newProductForm td {
@@ -137,8 +138,10 @@ button:hover {
 
 #newProductForm.active {
 
-    display: flex;
+    display: inline-block; 
 }
+
+
 
 .dayCheckContainer {
     display: flex;
