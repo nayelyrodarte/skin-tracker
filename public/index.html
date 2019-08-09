@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>skintracker</title>
+</head>
+
+<body>
+    <h1>skintracker</h1>
+
+    <section class="newProductSection">
+        <button onclick="showModal()">+ Agregar producto</button>
+    </section>
+
+    <section class="week">
+        <div class="weekCard">
+            <h2>Lunes</h2>
+        </div>
+
+        <div class="weekCard">
+            <h2>Martes</h2>
+        </div>
+
+        <div class="weekCard">
+            <h2>Miercoles</h2>
+        </div>
+
+        <div class="weekCard">
+            <h2>Jueves</h2>
+        </div>
+
+        <div class="weekCard">
+            <h2>Viernes </h2>
+        </div>
+
+        <div class="weekCard">
+            <h2>Sábado</h2>
+        </div>
+
+        <div class="weekCard">
+            <h2>Domingo</h2>
+
+        </div>
+
+    </section>
+
+
+    <section class="am">
+
+        <div class="daySection mon">
+        </div>
+
+        <div class="daySection tues">
+        </div>
+
+        <div class="daySection wed">
+        </div>
+
+        <div class="daySection thurs">
+        </div>
+
+        <div class="daySection fri">
+        </div>
+
+        <div class="daySection sat">
+        </div>
+
+        <div class="daySection sun">
+        </div>
+
+
+        <form id="newProductForm">
+            <table>
+                <tr>
+                    <td><label for="productName">Nombre del producto:</label></td>
+                    <td><input type="text" name="productName"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="productType">Tipo de producto:</label></td>
+                    <td><input name="productType" list="products"></td>
+
+                    <datalist id="products">
+                        <option>Limpiador</option>
+                        <option>Exfoliante</option>
+                        <option>Mascarilla</option>
+                        <option>Tónico</option>
+                        <option>Serum</option>
+                        <option>Crema de ojos</option>
+                        <option>Crema humectante</option>
+                        <option>Protector Solar</option>
+
+                    </datalist>
+                </tr>
+
+                <tr class="dayCheckContainer">
+                    <td><label for="daysOfUse">Días:</label></td>
+                    <td><input name="monday" type="checkbox">L</td>
+                    <td><input name="tuesday" type="checkbox">M</td>
+                    <td><input name="wednesday" type="checkbox">Mi </td>
+                    <td><input name="thursday" type="checkbox">J</td>
+                    <td><input name="friday" type="checkbox">V</td>
+                    <td><input name="saturday" type="checkbox">S</td>
+                    <td><input name="sunday" type="checkbox">D</td>
+                </tr>
+
+
+            </table>
+
+            <div id="submitButton">
+                <input type="submit" value="Añadir" class="addProduct" onclick="hideModal()">
+            </div>
+
+        </form>
+
+    </section>
+
+
+
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>

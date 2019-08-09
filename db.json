@@ -1,0 +1,12 @@
+"week": [
+    "days": [
+        {
+            "name": "lunes",
+            "products": [
+                {
+                    "name": "nombre producto",
+                    "type": "tipo producto"
+                }
+            ]
+        ]
+    ]
