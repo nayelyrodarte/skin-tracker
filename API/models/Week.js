@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const weekSchema = mongoose.Schema({
-    days: Array
-})
+  _id: Object,
+  day: String,
+  products: Object,
+});
 
-
-// aqui se determina el nombre del modelo
-module.exports = mongoose.model("Week", weekSchema);
+module.exports = mongoose.model('Week', weekSchema);

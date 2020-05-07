@@ -1,132 +1,99 @@
-
-
 // FUNCIONALIDAD DEL FRONT
 
-const newProductForm = document.querySelector("#newProductForm");
+const newProductForm = document.querySelector('#newProductForm');
+const daySections = document.querySelectorAll('.daySection');
 
-const daySections = document.querySelectorAll(".daySection")
-// const mondaySection = document.querySelector(".mon");
-// const tuesdaySection = document.querySelector(".tue");
-// const wednesdaySection = document.querySelector(".wed");
-// const thursdaySection = document.querySelector(".thurs");
-// const fridaySection = document.querySelector(".fri");
-// const saturdaySection = document.querySelector("sat");
-// const sundaySection = document.querySelector(".sun");
+function getDB() {
+  fetch(`http://localhost:8000/api`)
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      //printWeek(response.week);
+      addProduct(res);
+      return res;
+    });
+}
 
+getDB();
 
 function showModal() {
-
-    newProductForm.classList.add("active")
-
+  newProductForm.classList.add('active');
 }
 
 function hideModal() {
-    newProductForm.classList.remove("active")
+  newProductForm.classList.remove('active');
 }
 
-let actualWeek;
+function addProduct(res) {
+  // e.preventDefault();
+  hideModal();
 
-function getWeek() {
-
-    fetch(`http://localhost:8000/api/week`, { method: "get" })
-        .then(function (response) {
-            return response.json()
-        })
-        .then(function (response) {
-            console.log(response)
-            printWeek(response.week)
-            actualWeek = response.week;
-            return (response)
-        })
-
+  const newProduct = {
+    name: event.target.newProductForm.productName.value,
+    type: event.target.productType.value,
+  };
 }
 
-getWeek();
+addProduct();
 
-// manejar los datos del formulario
-newProductForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // para que no haga refresh
+//   if (event.target.monday.checked) {
+//     actualWeek.days[0].products.push(newProduct);
+//   }
 
-    hideModal();
+//   if (event.target.tuesday.checked) {
+//     actualWeek.days[1].products.push(newProduct);
+//   }
 
-    const newProduct =
-    {
-        name: event.target.productName.value,
-        type: event.target.productType.value
-    }
+//   if (event.target.wednesday.checked) {
+//     actualWeek.days[2].products.push(newProduct);
+//   }
 
+//   if (event.target.thursday.checked) {
+//     actualWeek.days[3].products.push(newProduct);
+//   }
 
-    if (event.target.monday.checked) {
-        actualWeek.days[0].products.push(newProduct);
-    }
+//   if (event.target.friday.checked) {
+//     actualWeek.days[4].products.push(newProduct);
+//   }
 
-    if (event.target.tuesday.checked) {
-        actualWeek.days[1].products.push(newProduct);
-    }
+//   if (event.target.saturday.checked) {
+//     actualWeek.days[5].products.push(newProduct);
+//   }
 
-    if (event.target.wednesday.checked) {
-        actualWeek.days[2].products.push(newProduct);
-    }
+//   if (event.target.sunday.checked) {
+//     actualWeek.days[6].products.push(newProduct);
 
-    if (event.target.thursday.checked) {
-        actualWeek.days[3].products.push(newProduct);
-    }
+//   const postConfig = {
+//     method: 'put',
+//     body: JSON.stringify(actualWeek),
+//     headers: {
+//       'Content-type': 'application/json',
+//     },
+//   };
 
-    if (event.target.friday.checked) {
-        actualWeek.days[4].products.push(newProduct);
-    }
+//   fetch(`http://localhost:8000/api`, postConfig)
+//     .then(function (response) {
+//       return response.json();
+//     })
 
-    if (event.target.saturday.checked) {
-        actualWeek.days[5].products.push(newProduct);
-    }
+//     .catch((error) => console.error('Error:', error))
+//     .then((response) => {
+//       console.log('Success:', response);
+//       getDB();
+//     });
+// }
 
-    if (event.target.sunday.checked) {
-        actualWeek.days[6].products.push(newProduct)
-    }
+// function printWeek(week) {
+//   week.days.forEach((day, index) => {
+//     const productCards = day.products.map((product) => {
+//       return `<div class="cards">
+//             ${product.type}
+//             ${product.name}
+//             </div>`;
+//     });
 
+//     daySections[index].innerHTML = productCards.join('');
+//   });
+// }
 
-
-    const postConfig = {
-        method: "put",
-        body: JSON.stringify(actualWeek),
-        headers: {
-            "Content-type": "application/json"
-        }
-    }
-
-    fetch(`http://localhost:8000/api/week`, postConfig)
-        .then(function (response) {
-            return response.json();
-        })
-
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            console.log('Success:', response)
-            getWeek();
-        })
-
-
-})
-
-
-
-
-function printWeek(week) {
-
-    week.days.forEach((day, index) => {
-        const productCards = day.products.map((product) => {
-            return `<div class="cards">
-            ${product.type}
-            ${product.name}
-            </div>`
-        })
-
-        daySections[index].innerHTML = productCards.join('');
-
-    })
-
-
-
-
-}
-
+// newProductForm.addEventListener('submit', addProduct);
