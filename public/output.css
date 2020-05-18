@@ -1,0 +1,92 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Simplicity";
+  text-align: center;
+  font-size: 20px;
+}
+
+@font-face {
+  font-family: "Simplicity";
+  src: url(./fonts/simplicity.ttf);
+}
+@font-face {
+  font-family: "Misses";
+  src: url(./fonts/Misses.otf);
+}
+h1 {
+  text-align: center;
+  font-family: "Misses";
+  font-size: 50px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #dd2a7b;
+  color: white;
+  border: none;
+  cursor: grabbing;
+}
+
+.grid {
+  align-items: flex-start;
+  margin: 2em 0.5em;
+  width: 100vw;
+  gap: 0.5em;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr 7fr;
+}
+
+.grid > div {
+  background-color: #f5f4e8;
+  height: 3em;
+  border-radius: 15px;
+}
+
+form {
+  display: grid;
+  background-color: #c7c5c5;
+  color: black;
+  width: fit-content;
+  padding: 1em;
+  border-radius: 20px;
+}
+form button {
+  width: fit-content;
+  justify-self: center;
+  margin: 0.5em;
+}
+form input {
+  border-radius: 10px;
+  border: none;
+}
+form label {
+  justify-self: left;
+}
+
+form > section {
+  display: grid;
+  gap: 10px;
+}
+
+form.active {
+  display: block;
+  position: absolute;
+}
+
+.header {
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+}
+.header img {
+  width: 3rem;
+}
+
+/*# sourceMappingURL=output.css.map */

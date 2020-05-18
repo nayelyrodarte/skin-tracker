@@ -1,5 +1,3 @@
-// FUNCIONALIDAD DEL FRONT
-
 const newProductForm = document.querySelector('#newProductForm');
 const daySections = document.querySelectorAll('.daySection');
 
