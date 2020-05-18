@@ -1,5 +1,10 @@
-const newProductForm = document.querySelector('#newProductForm');
-const daySections = document.querySelectorAll('.daySection');
+const form_button = document.querySelector('.form_button');
+const form = document.querySelector('.form_container');
+const modal = document.querySelector('.modal');
+const close_form = document.querySelector('i');
+
+form_button.addEventListener('click', showModal);
+close_form.addEventListener('click', hideModal);
 
 function getDB() {
   fetch(`http://localhost:8000/api`)
@@ -12,24 +17,25 @@ function getDB() {
     });
 }
 
-getDB();
-
 function showModal() {
-  newProductForm.classList.add('active');
+  form.classList.add('active');
+  modal.classList.add('overlay');
 }
 
 function hideModal() {
-  newProductForm.classList.remove('active');
+  form.classList.remove('active');
+  modal.classList.remove('overlay');
 }
 
 function addProduct(res) {
   // e.preventDefault();
   hideModal();
 
-  const newProduct = {
-    name: event.target.newProductForm.productName.value,
-    type: event.target.productType.value,
-  };
+  //   const newProduct = {
+  //     name: event.target.newProductForm.productName.value,
+  //     type: event.target.productType.value,
+  //   };
+  // }
 }
 
 addProduct();

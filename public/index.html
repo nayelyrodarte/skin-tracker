@@ -4,16 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="output.css">
+    <script src="https://kit.fontawesome.com/6dd6aa52f2.js" crossorigin="anonymous"></script>
     <title>skintracker</title>
 </head>
 
 <body>
+    <div class="modal"></div>
     <div class="header">
         <h1>skintracker</h1>
         <img src="./logo_img.svg" alt="facial-cream-logo">
     </div>
 
-    <button onclick="showModal()">+ Agregar producto</button>
+    <button class="form_button">+ Agregar producto</button>
 
 
     <section class="grid">
@@ -34,18 +36,19 @@
 
     </section>
 
-        <form>
-<section>
-    <div>
+        <form class="active form_container">
+            <i class="far fa-times-circle"></i>
+
         <label for="productName">Nombre del producto:</label>
         <input type="text" name="productName">
-    </div>
-    <div>
+    
         <label for="productType">Tipo de producto:</label>
-        <input name="productType" list="products">
-    </div>
-    <div>
-        <datalist id="products">
+        <input name="productType" list="products_list">
+
+        <label for="exp_date">Fecha de expiración</label>
+        <input type="date" name="exp_date">
+        
+        <datalist id="products_list">
             <option>Limpiador</option>
             <option>Exfoliante</option>
             <option>Mascarilla</option>
@@ -55,20 +58,24 @@
             <option>Crema humectante</option>
             <option>Protector Solar</option>
         </datalist>
-    </div>
-    <div>
-        <label for="daysOfUse">Días de uso:</label></td>
-                    <input name="monday" type="checkbox">L</input>
-                    <input name="tuesday" type="checkbox">M</input>
-                    <input name="wednesday" type="checkbox">Mi </input>
-                    <input name="thursday" type="checkbox">J</input>
-                    <input name="friday" type="checkbox">V</input>
-                    <input name="saturday" type="checkbox">S</input>
-                    <input name="sunday" type="checkbox">D</input>
-    </div>
+   
+        
+          <label for="daysOfUse">Días de uso:</label>
+          <div>
+              <input name="monday" type="checkbox">L</input>
+            <input name="tuesday" type="checkbox">M</input>
+            <input name="wednesday" type="checkbox">Mi </input>
+            <input name="thursday" type="checkbox">J</input>
+            <input name="friday" type="checkbox">V</input>
+            <input name="saturday" type="checkbox">S</input>
+            <input name="sunday" type="checkbox">D</input>
+        </div>     
+        
+        
 </section>
 
             <button type="submit">Añadir</button>
+
         </form>
 
     <script src="scripts.js"></script>

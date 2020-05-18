@@ -30,7 +30,7 @@ h1 {
 button {
   padding: 10px 15px;
   border: none;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 button:hover {
@@ -42,9 +42,9 @@ button:hover {
 
 .grid {
   align-items: flex-start;
-  margin: 2em .5em;
-  width: 100vw;
-  gap: .5em;
+  margin: 2em 0.5em;
+  width: 98vw;
+  gap: 0.5em;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 1fr 7fr;
@@ -57,12 +57,13 @@ button:hover {
 }
 
 form {
-  display: grid;
   background-color: rgb(199, 197, 197);
   color: black;
   width: fit-content;
   padding: 1em;
   border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: none;
 
   button {
     width: fit-content;
@@ -70,15 +71,20 @@ form {
     margin: 0.5em;
   }
 
-  input {
+  input[type='text'],
+  input[list="products_list"],
+  input[type="date"] {
     border-radius: 10px;
     border: none;
+    width: 90%;
+    justify-self: center;
+    margin: 10px;
   }
 
-  label {
-    justify-self: left;
+  input[type="checkbox"] {
+    margin: 20px 0;
+    width: 20px;
   }
-
 }
 
 form>section {
@@ -86,10 +92,23 @@ form>section {
   gap: 10px;
 }
 
+form>i {
+  justify-self: right;
+  margin-bottom: .5em;
+  color: rgb(144, 144, 144);
+}
+
+form>i:hover {
+  color: $accent-color;
+}
+
 
 form.active {
-  display: block;
-  position: absolute;
+  display: grid;
+  position: fixed;
+  top: 20vh;
+  left: 40vw;
+  z-index: 11;
 }
 
 .header {
@@ -100,4 +119,14 @@ form.active {
   img {
     width: 3rem;
   }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 10;
 }
