@@ -1,7 +1,7 @@
-const form_button = document.querySelector('.form_button');
 const form = document.querySelector('.form_container');
-const modal = document.querySelector('.modal');
+const form_button = document.querySelector('.form_button');
 const close_form = document.querySelector('i');
+const modal = document.querySelector('.modal');
 
 form_button.addEventListener('click', showModal);
 close_form.addEventListener('click', hideModal);

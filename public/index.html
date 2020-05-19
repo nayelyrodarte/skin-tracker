@@ -1,84 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="output.css">
-    <script src="https://kit.fontawesome.com/6dd6aa52f2.js" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="output.css" />
+    <link rel="stylesheet" type="text/css" href="mobile_styles.css" />
+    <script
+      src="https://kit.fontawesome.com/6dd6aa52f2.js"
+      crossorigin="anonymous"
+    ></script>
     <title>skintracker</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="modal"></div>
     <div class="header">
-        <h1>skintracker</h1>
-        <img src="./logo_img.svg" alt="facial-cream-logo">
+      <img src="./logo_img.svg" alt="facial-cream-logo" />
+      <h1>skintracker</h1>
     </div>
 
     <button class="form_button">+ Agregar producto</button>
 
-
     <section class="grid">
-        <div class="day">Lunes</div>
-        <div class="day">Martes</div>
-        <div class="day">Miércoles</div>
-        <div class="day">Jueves</div>
-        <div class="day">Viernes</div>
-        <div class="day">Sábado</div>
-        <div class="day">Domingo</div>
-        <div class="content">8</div>
-        <div class="content">9</div>
-        <div class="content">10</div>
-        <div class="content">11</div>
-        <div class="content">12</div>
-        <div class="content">13</div>
-        <div class="content">14</div>
-
+      <div class="day">
+        <p>Lunes</p>
+      </div>
+      <div class="day">Martes</div>
+      <div class="day">Miércoles</div>
+      <div class="day">Jueves</div>
+      <div class="day">Viernes</div>
+      <div class="day">Sábado</div>
+      <div class="day">Domingo</div>
+      <div class="content monday">8</div>
+      <div class="content tuesday">9</div>
+      <div class="content wednesday">10</div>
+      <div class="content thursday">11</div>
+      <div class="content friday">12</div>
+      <div class="content saturday">13</div>
+      <div class="content sunday">14</div>
     </section>
 
-        <form class="active form_container">
-            <i class="far fa-times-circle"></i>
+    <form class="active form_container">
+      <i class="far fa-times-circle"></i>
 
-        <label for="productName">Nombre del producto:</label>
-        <input type="text" name="productName">
-    
-        <label for="productType">Tipo de producto:</label>
-        <input name="productType" list="products_list">
+      <label for="productName">Nombre del producto:</label>
+      <input type="text" name="productName" />
 
-        <label for="exp_date">Fecha de expiración</label>
-        <input type="date" name="exp_date">
-        
-        <datalist id="products_list">
-            <option>Limpiador</option>
-            <option>Exfoliante</option>
-            <option>Mascarilla</option>
-            <option>Tónico</option>
-            <option>Serum</option>
-            <option>Crema de ojos</option>
-            <option>Crema humectante</option>
-            <option>Protector Solar</option>
-        </datalist>
-   
-        
-          <label for="daysOfUse">Días de uso:</label>
-          <div>
-              <input name="monday" type="checkbox">L</input>
-            <input name="tuesday" type="checkbox">M</input>
-            <input name="wednesday" type="checkbox">Mi </input>
-            <input name="thursday" type="checkbox">J</input>
-            <input name="friday" type="checkbox">V</input>
-            <input name="saturday" type="checkbox">S</input>
-            <input name="sunday" type="checkbox">D</input>
-        </div>     
-        
-        
-</section>
+      <label for="productType">Tipo de producto:</label>
+      <input name="productType" list="products_list" />
 
-            <button type="submit">Añadir</button>
+      <label for="exp_date">Fecha de expiración</label>
+      <input type="date" name="exp_date" />
 
-        </form>
+      <datalist id="products_list">
+        <option>Limpiador</option>
+        <option>Exfoliante</option>
+        <option>Mascarilla</option>
+        <option>Tónico</option>
+        <option>Serum</option>
+        <option>Crema de ojos</option>
+        <option>Crema humectante</option>
+        <option>Protector Solar</option>
+      </datalist>
+
+      <label for="daysOfUse">Días de uso:</label>
+      <div>
+        <input name="monday" type="checkbox" />L
+        <input name="tuesday" type="checkbox" />M
+        <input name="wednesday" type="checkbox" />Mi
+        <input name="thursday" type="checkbox" />J
+        <input name="friday" type="checkbox" />V
+        <input name="saturday" type="checkbox" />S
+        <input name="sunday" type="checkbox" />D
+      </div>
+
+      <button type="submit">Añadir</button>
+    </form>
 
     <script src="scripts.js"></script>
-</body>
-
+  </body>
 </html>

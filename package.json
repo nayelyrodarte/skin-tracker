@@ -5,7 +5,7 @@
   "main": "scripts.js",
   "scripts": {
     "start": "nodemon server.js",
-    "sass": "sass --watch public/styles.scss public/output.css"
+    "sass": "concurrently \"sass --watch public/styles.scss public/output.css\" \"sass --watch public/mobile_styles.scss public/mobile_styles.css\""
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "nodemon": "^1.19.1"
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
     "sass": "^1.26.5"
   }
 }

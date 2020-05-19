@@ -25,9 +25,12 @@ h1 {
   text-align: center;
   font-family: $primary-font;
   font-size: 50px;
+  line-height: 0;
+  margin-bottom: 0.5em;
 }
 
 button {
+  margin-top: 1em;
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
@@ -54,6 +57,7 @@ button:hover {
   background-color: $primary-color;
   height: 3em;
   border-radius: 15px;
+
 }
 
 form {
@@ -111,15 +115,11 @@ form.active {
   z-index: 11;
 }
 
-.header {
-  display: flex;
-  flex-flow: nowrap;
-  justify-content: center;
-
-  img {
-    width: 3rem;
-  }
+img {
+  margin-top: 1rem;
+  width: 4rem;
 }
+
 
 .overlay {
   position: fixed;
