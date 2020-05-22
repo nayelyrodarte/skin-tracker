@@ -1,21 +1,26 @@
-const form = document.querySelector('.form_container');
-const form_button = document.querySelector('.form_button');
+const form = document.querySelector('form');
+const addproduct_button = document.querySelector('.form_button');
+const submitproduct_button = document.querySelector('.submit_product');
 const close_form = document.querySelector('i');
 const modal = document.querySelector('.modal');
+const checkbox = document.querySelectorAll('input[type="checkbox"]');
 
-form_button.addEventListener('click', showModal);
+addproduct_button.addEventListener('click', showModal);
 close_form.addEventListener('click', hideModal);
+submitproduct_button.addEventListener('click', addProduct);
 
 function getDB() {
-  fetch(`http://localhost:8000/api`)
+  fetch(`http://localhost:8000/api/routine`)
     .then((res) => res.json())
     .then((res) => {
       console.log(res);
       //printWeek(response.week);
-      addProduct(res);
+      //addProduct(res);
       return res;
     });
 }
+
+getDB();
 
 function showModal() {
   form.classList.add('active');
@@ -27,45 +32,22 @@ function hideModal() {
   modal.classList.remove('overlay');
 }
 
-function addProduct(res) {
-  // e.preventDefault();
+function addProduct(e) {
+  e.preventDefault();
   hideModal();
 
-  //   const newProduct = {
-  //     name: event.target.newProductForm.productName.value,
-  //     type: event.target.productType.value,
-  //   };
-  // }
+  const newProduct = {
+    name: event.target.form.product_name.value,
+    type: event.target.form.product_type.value,
+    date: event.target.form.exp_date.value,
+  };
+
+  for (let i = 0; i < checkbox.length; i++) {
+    if (checkbox[i].checked) {
+      console.log(checkbox[i].value);
+    }
+  }
 }
-
-addProduct();
-
-//   if (event.target.monday.checked) {
-//     actualWeek.days[0].products.push(newProduct);
-//   }
-
-//   if (event.target.tuesday.checked) {
-//     actualWeek.days[1].products.push(newProduct);
-//   }
-
-//   if (event.target.wednesday.checked) {
-//     actualWeek.days[2].products.push(newProduct);
-//   }
-
-//   if (event.target.thursday.checked) {
-//     actualWeek.days[3].products.push(newProduct);
-//   }
-
-//   if (event.target.friday.checked) {
-//     actualWeek.days[4].products.push(newProduct);
-//   }
-
-//   if (event.target.saturday.checked) {
-//     actualWeek.days[5].products.push(newProduct);
-//   }
-
-//   if (event.target.sunday.checked) {
-//     actualWeek.days[6].products.push(newProduct);
 
 //   const postConfig = {
 //     method: 'put',
@@ -99,5 +81,3 @@ addProduct();
 //     daySections[index].innerHTML = productCards.join('');
 //   });
 // }
-
-// newProductForm.addEventListener('submit', addProduct);

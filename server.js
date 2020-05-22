@@ -3,8 +3,7 @@ const app = express();
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 
-const api = require('./api');
-app.use('/api', api);
+app.use('/api/routine', require('./API/routes/routine'));
 app.use('/', express.static('public'));
 
 app.listen(process.env.PORT, function () {
@@ -12,9 +11,12 @@ app.listen(process.env.PORT, function () {
   console.log(`http://localhost:${process.env.PORT}`);
 });
 
-// conexión a Mongo
 mongoose
-  .connect(process.env.MONGODB, { useNewUrlParser: true })
+  .connect(process.env.MONGODB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: true,
+  })
   .then(function (result) {
     console.log('connected with Mongo');
   })

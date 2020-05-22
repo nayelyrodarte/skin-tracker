@@ -61,13 +61,13 @@ button:hover {
 }
 
 form {
+  display: none;
   background-color: rgb(199, 197, 197);
   color: black;
   width: fit-content;
   padding: 1em;
   border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  display: none;
 
   button {
     width: fit-content;
