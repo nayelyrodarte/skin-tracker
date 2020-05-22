@@ -19,4 +19,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.put('/:day', async (req, res) => {
+  try {
+    const day = await Day.findOneAndUpdate(
+      { day: req.params.day },
+      { $push: { products: req.body } }
+    );
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json('Error del servidor').end();
+  }
+});
+
 module.exports = router;

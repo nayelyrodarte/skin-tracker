@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const daySchema = mongoose.Schema(
   {
     day: String,
-    products: Array,
+    products: [],
   },
   { collection: 'weeks' }
 );

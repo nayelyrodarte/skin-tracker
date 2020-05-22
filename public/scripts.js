@@ -15,8 +15,6 @@ function getDB() {
     .then((res) => {
       console.log(res);
       //printWeek(response.week);
-      //addProduct(res);
-      return res;
     });
 }
 
@@ -42,32 +40,27 @@ function addProduct(e) {
     date: event.target.form.exp_date.value,
   };
 
-  for (let i = 0; i < checkbox.length; i++) {
+  for (let i = 0; i <= checkbox.length; i++) {
     if (checkbox[i].checked) {
-      console.log(checkbox[i].value);
+      const day = checkbox[i].value;
+
+      const put = {
+        method: 'put',
+        body: JSON.stringify(newProduct),
+        headers: {
+          'Content-type': 'application/json',
+        },
+      };
+
+      fetch(`http://localhost:8000/api/routine/${day}`, put)
+        .then((response) => {
+          console.log('Success:', response);
+          return response.json();
+        })
+        .catch((error) => console.error('Error:', error));
     }
   }
 }
-
-//   const postConfig = {
-//     method: 'put',
-//     body: JSON.stringify(actualWeek),
-//     headers: {
-//       'Content-type': 'application/json',
-//     },
-//   };
-
-//   fetch(`http://localhost:8000/api`, postConfig)
-//     .then(function (response) {
-//       return response.json();
-//     })
-
-//     .catch((error) => console.error('Error:', error))
-//     .then((response) => {
-//       console.log('Success:', response);
-//       getDB();
-//     });
-// }
 
 // function printWeek(week) {
 //   week.days.forEach((day, index) => {
