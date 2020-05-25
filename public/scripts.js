@@ -3,18 +3,23 @@ const addproduct_button = document.querySelector('.form_button');
 const submitproduct_button = document.querySelector('.submit_product');
 const close_form = document.querySelector('i');
 const modal = document.querySelector('.modal');
-const checkbox = document.querySelectorAll('input[type="checkbox"]');
+const days_selection = document.querySelectorAll('input[type="checkbox"]');
+const week_containers = document.querySelectorAll('.content');
 
 addproduct_button.addEventListener('click', showModal);
 close_form.addEventListener('click', hideModal);
 submitproduct_button.addEventListener('click', addProduct);
+
+//TO DO
+// Delete cards
+// Delete whole routine
 
 function getDB() {
   fetch(`http://localhost:8000/api/routine`)
     .then((res) => res.json())
     .then((res) => {
       console.log(res);
-      //printWeek(response.week);
+      printRoutine(res);
     });
 }
 
@@ -40,9 +45,11 @@ function addProduct(e) {
     date: event.target.form.exp_date.value,
   };
 
-  for (let i = 0; i <= checkbox.length; i++) {
-    if (checkbox[i].checked) {
-      const day = checkbox[i].value;
+  for (week_day of days_selection) {
+    if (week_day.checked) {
+      const day = week_day.value;
+
+      console.log(day, newProduct);
 
       const put = {
         method: 'put',
@@ -60,17 +67,22 @@ function addProduct(e) {
         .catch((error) => console.error('Error:', error));
     }
   }
+  //getDB();
 }
 
-// function printWeek(week) {
-//   week.days.forEach((day, index) => {
-//     const productCards = day.products.map((product) => {
-//       return `<div class="cards">
-//             ${product.type}
-//             ${product.name}
-//             </div>`;
-//     });
+function printRoutine(res) {
+  res.forEach((day, index) => {
+    for (let i = 0; i < day.products.length; i++) {
+      let cards = `<div class="card">
+    <p>${day.products[i].name}</p>
+    <p>${day.products[i].type}</p>
+    <p>Expira ${day.products[i].date}</p>
+    </div>
+    `;
 
-//     daySections[index].innerHTML = productCards.join('');
-//   });
-// }
+      week_containers[index].innerHTML += cards;
+    }
+  });
+}
+
+printRoutine();

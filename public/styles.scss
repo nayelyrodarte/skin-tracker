@@ -54,9 +54,16 @@ button:hover {
 }
 
 .grid>div {
+  display: grid;
   background-color: $primary-color;
   height: 3em;
   border-radius: 15px;
+  align-items: center;
+  justify-items: center;
+}
+
+.grid>div.content {
+  height: fit-content;
 
 }
 
@@ -129,4 +136,13 @@ img {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 10;
+}
+
+.content>.card {
+  background-color: rgb(193, 109, 160);
+  border-radius: 10px;
+  width: 95%;
+  height: fit-content;
+  color: white;
+  margin: .2em
 }

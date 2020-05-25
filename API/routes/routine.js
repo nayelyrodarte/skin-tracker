@@ -7,7 +7,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 // @route GET api/routine
-// Get complete routine
+// Get complete routine of the
 router.get('/', async (req, res) => {
   try {
     const routine = await Day.find();
@@ -19,6 +19,8 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route PUT api/routine/:day
+// Add individual products to user selected days of the week
 router.put('/:day', async (req, res) => {
   try {
     const day = await Day.findOneAndUpdate(

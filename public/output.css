@@ -47,19 +47,26 @@ button:hover {
 }
 
 .grid > div {
+  display: grid;
   background-color: #f5f4e8;
   height: 3em;
   border-radius: 15px;
+  align-items: center;
+  justify-items: center;
+}
+
+.grid > div.content {
+  height: fit-content;
 }
 
 form {
+  display: none;
   background-color: #c7c5c5;
   color: black;
   width: fit-content;
   padding: 1em;
   border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  display: none;
 }
 form button {
   width: fit-content;
@@ -105,7 +112,7 @@ form.active {
 
 img {
   margin-top: 1rem;
-  width: 4rem;
+  width: 3rem;
 }
 
 .overlay {
@@ -116,6 +123,15 @@ img {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 10;
+}
+
+.content > .card {
+  background-color: #c16da0;
+  border-radius: 10px;
+  width: 95%;
+  height: fit-content;
+  color: white;
+  margin: 0.2em;
 }
 
 /*# sourceMappingURL=output.css.map */
