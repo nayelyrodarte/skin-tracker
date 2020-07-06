@@ -50,7 +50,6 @@ button:hover {
   gap: 0.5em;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 1fr 7fr;
 }
 
 .grid > div {
@@ -58,26 +57,38 @@ button:hover {
   background-color: #f5f4e8;
   height: 3em;
   border-radius: 15px;
-  align-items: center;
   justify-items: center;
+  align-items: center;
+  grid-auto-rows: max-content;
+  gap: 0.5em;
 }
 
 .grid > div:nth-of-type(n+8) {
+  min-height: 60vh;
   height: fit-content;
+  align-items: start;
 }
 
 /* --- Individual product cards --- */
 .card {
+  position: relative;
   background-color: #c16da0;
   border-radius: 10px;
-  width: 95%;
+  width: 70%;
   height: fit-content;
   color: white;
-  margin: 0.2em;
+  margin: 0.5em;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-/* -- Form for adding products --*/
+.card > i {
+  font-size: 0.8em;
+  position: absolute;
+  margin: 0.3em;
+  right: 50%;
+}
+
+/* -- Form --*/
 form {
   position: fixed;
   display: none;
@@ -111,11 +122,6 @@ form input[type=checkbox] {
   width: 20px;
 }
 
-form > section {
-  display: grid;
-  gap: 10px;
-}
-
 /* Form close button */
 form > i {
   position: relative;
@@ -128,7 +134,7 @@ form > i:hover {
   color: #dd2a7b;
 }
 
-/* -- Modal features */
+/* -- Modal -- */
 form.active {
   display: block;
 }
@@ -148,37 +154,42 @@ form.active {
 /* ------- */
 @media screen and (max-width: 1020px) {
   .grid {
-    margin: 2em 0;
+    margin: auto;
+    margin-top: 2em;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(13, 1fr);
+    width: 70vw;
+    height: auto;
   }
 
-  .grid > div {
-    width: 80%;
-    justify-self: center;
+  .card {
+    width: 70%;
   }
 
-  .Monday {
+  .card > i {
+    left: 88%;
+  }
+
+  .monday {
     grid-row-start: 2;
   }
 
-  .Tuesday {
+  .tuesday {
     grid-row-start: 4;
   }
 
-  .Wednesday {
+  .wednesday {
     grid-row-start: 6;
   }
 
-  .Thursday {
+  .thursday {
     grid-row-start: 8;
   }
 
-  .Friday {
+  .friday {
     grid-row-start: 10;
   }
 
-  .Saturday {
+  .saturday {
     grid-row-start: 12;
   }
 }

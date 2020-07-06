@@ -1,10 +1,13 @@
 const form = document.querySelector('form');
 const addproduct_button = document.querySelector('.form_button');
 const submitproduct_button = document.querySelector('.submit_product');
-const close_form = document.querySelector('i');
+const close_form = document.querySelector('form>i');
 const modal = document.querySelector('.modal');
 const days_selection = document.querySelectorAll('input[type="checkbox"]');
 const week_containers = document.querySelectorAll('.grid>div:nth-of-type(n+8)');
+const cards = document.querySelectorAll('.card');
+
+console.log(cards);
 
 addproduct_button.addEventListener('click', showModal);
 close_form.addEventListener('click', hideModal);
@@ -69,9 +72,10 @@ function addProduct(event) {
 function print(res) {
   res.map((db_product) => {
     db_product.days.map((product_day) => {
-      week_containers.forEach((day, index) => {
-        if (product_day === day.className) {
-          let card = `<div class="card">
+      week_containers.forEach((week_day, index) => {
+        if (product_day === week_day.className) {
+          let card = `<div class="card" id="${db_product._id}">
+          <i class="far fa-times-circle"></i>
           <p>${db_product.name}</p>
           <p>${db_product.type}</p>
           <p>Expira ${db_product.date}</p>
@@ -83,3 +87,5 @@ function print(res) {
     });
   });
 }
+
+console.log(cards);
