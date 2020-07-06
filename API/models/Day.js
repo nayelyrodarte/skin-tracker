@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 
 const daySchema = mongoose.Schema(
   {
-    day: String,
-    products: [],
+    name: String,
+    type: String,
+    date: Date,
+    days: Array,
   },
   { collection: 'weeks' }
 );

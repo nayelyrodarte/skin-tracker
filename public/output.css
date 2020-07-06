@@ -22,6 +22,12 @@ h1 {
   margin-bottom: 0.5em;
 }
 
+/* --- Logo --- */
+img {
+  margin-top: 1rem;
+  width: 3rem;
+}
+
 button {
   margin-top: 1em;
   padding: 10px 15px;
@@ -36,6 +42,7 @@ button:hover {
   cursor: grabbing;
 }
 
+/* -- Calendar main grid --*/
 .grid {
   align-items: flex-start;
   margin: 2em 0.5em;
@@ -55,15 +62,34 @@ button:hover {
   justify-items: center;
 }
 
-.grid > div.content {
+.grid > div:nth-of-type(n+8) {
+  background-color: rebeccapurple;
   height: fit-content;
 }
 
+/* --- Individual product cards --- */
+.content > .card {
+  background-color: #c16da0;
+  border-radius: 10px;
+  width: 95%;
+  height: fit-content;
+  color: white;
+  margin: 0.2em;
+}
+
+/* -- Form for adding products --*/
 form {
+  position: fixed;
   display: none;
+  z-index: 11;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  top: 10%;
   background-color: #c7c5c5;
   color: black;
-  width: fit-content;
+  width: 15em;
   padding: 1em;
   border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -73,9 +99,7 @@ form button {
   justify-self: center;
   margin: 0.5em;
 }
-form input[type=text],
-form input[list=products_list],
-form input[type=date] {
+form input {
   border-radius: 10px;
   border: none;
   width: 90%;
@@ -92,8 +116,10 @@ form > section {
   gap: 10px;
 }
 
+/* Form close button */
 form > i {
-  justify-self: right;
+  position: relative;
+  justify-self: end;
   margin-bottom: 0.5em;
   color: #909090;
 }
@@ -102,36 +128,59 @@ form > i:hover {
   color: #dd2a7b;
 }
 
+/* -- Modal features */
 form.active {
-  display: grid;
-  position: fixed;
-  top: 20vh;
-  left: 40vw;
-  z-index: 11;
-}
-
-img {
-  margin-top: 1rem;
-  width: 3rem;
+  display: block;
 }
 
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 10;
+  z-index: 1;
 }
 
-.content > .card {
-  background-color: #c16da0;
-  border-radius: 10px;
-  width: 95%;
-  height: fit-content;
-  color: white;
-  margin: 0.2em;
+/* ------- */
+@media screen and (max-width: 1020px) {
+  .grid {
+    margin: 2em 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(13, 1fr);
+  }
+
+  .grid > div {
+    width: 80%;
+    justify-self: center;
+  }
+
+  .Monday {
+    grid-row-start: 2;
+  }
+
+  .Tuesday {
+    grid-row-start: 4;
+  }
+
+  .Wednesday {
+    grid-row-start: 6;
+  }
+
+  .Thursday {
+    grid-row-start: 8;
+  }
+
+  .Friday {
+    grid-row-start: 10;
+  }
+
+  .Saturday {
+    grid-row-start: 12;
+  }
 }
 
 /*# sourceMappingURL=output.css.map */

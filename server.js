@@ -17,7 +17,7 @@ mongoose
     useUnifiedTopology: true,
     useFindAndModify: false,
   })
-  .then(function (result) {
+  .then(function () {
     console.log('connected with Mongo');
   })
   .catch(function (err) {

@@ -5,7 +5,7 @@
   "main": "scripts.js",
   "scripts": {
     "start": "nodemon server.js",
-    "sass": "concurrently \"sass --watch public/styles.scss public/output.css\" \"sass --watch public/mobile_styles.scss public/mobile_styles.css\""
+    "sass": "sass --watch public/styles.scss public/output.css"
   },
   "author": "",
   "license": "ISC",

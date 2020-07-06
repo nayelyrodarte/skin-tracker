@@ -4,22 +4,18 @@ const submitproduct_button = document.querySelector('.submit_product');
 const close_form = document.querySelector('i');
 const modal = document.querySelector('.modal');
 const days_selection = document.querySelectorAll('input[type="checkbox"]');
-const week_containers = document.querySelectorAll('.content');
+const week_containers = document.querySelectorAll('.grid>div:nth-of-type(n+8)');
 
 addproduct_button.addEventListener('click', showModal);
 close_form.addEventListener('click', hideModal);
 submitproduct_button.addEventListener('click', addProduct);
 
-//TO DO
-// Delete cards
-// Delete whole routine
-
-function getDB() {
-  fetch(`http://localhost:8000/api/routine`)
+async function getDB() {
+  const DB = await fetch(`http://localhost:8000/api/routine`)
     .then((res) => res.json())
     .then((res) => {
       console.log(res);
-      printRoutine(res);
+      print(res);
     });
 }
 
@@ -35,54 +31,55 @@ function hideModal() {
   modal.classList.remove('overlay');
 }
 
-function addProduct(e) {
-  e.preventDefault();
+function addProduct(event) {
+  event.preventDefault();
   hideModal();
 
   const newProduct = {
     name: event.target.form.product_name.value,
     type: event.target.form.product_type.value,
     date: event.target.form.exp_date.value,
+    days: [],
   };
 
   for (week_day of days_selection) {
     if (week_day.checked) {
       const day = week_day.value;
-
-      console.log(day, newProduct);
-
-      const put = {
-        method: 'put',
-        body: JSON.stringify(newProduct),
-        headers: {
-          'Content-type': 'application/json',
-        },
-      };
-
-      fetch(`http://localhost:8000/api/routine/${day}`, put)
-        .then((response) => {
-          console.log('Success:', response);
-          return response.json();
-        })
-        .catch((error) => console.error('Error:', error));
+      newProduct.days.push(day);
     }
   }
-  //getDB();
+
+  const post = {
+    method: 'post',
+    body: JSON.stringify(newProduct),
+    headers: {
+      'Content-type': 'application/json',
+    },
+  };
+
+  fetch(`http://localhost:8000/api/routine/`, post)
+    .then((response) => {
+      console.log('Success:', response);
+      return response.json();
+    })
+    .catch((error) => console.error('Error:', error));
 }
 
-function printRoutine(res) {
-  res.forEach((day, index) => {
-    for (let i = 0; i < day.products.length; i++) {
-      let cards = `<div class="card">
-    <p>${day.products[i].name}</p>
-    <p>${day.products[i].type}</p>
-    <p>Expira ${day.products[i].date}</p>
-    </div>
-    `;
-
-      week_containers[index].innerHTML += cards;
-    }
+function print(res) {
+  res.forEach((db_day) => {
+    console.log(db_day.name);
+    db_day.days.forEach((day) => console.log(day));
   });
-}
+  // week_containers.forEach((day, index) => {
+  //   console.log(db_day.days);
+  //   console.log(day.className, index);
+  //   if (db_day === day) {
+  //     let cards = `<div class="card">
+  // <p>${db_day.name}</p>
+  // <p>${db_day.type}</p>
+  // <p>Expira ${db_day.date}</p>
+  // </div>`;
 
-printRoutine();
+  console.log(week_containers);
+  //week_containers[index].innerHTML += cards;
+}

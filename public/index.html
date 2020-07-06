@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" type="text/css" href="output.css" />
-  <link rel="stylesheet" type="text/css" href="mobile_styles.css" />
   <script src="https://kit.fontawesome.com/6dd6aa52f2.js" crossorigin="anonymous"></script>
   <title>skintracker</title>
 </head>
@@ -29,17 +28,16 @@
     <div class="day">Viernes</div>
     <div class="day">Sábado</div>
     <div class="day">Domingo</div>
-    <div class="content Monday">
-    </div>
-    <div class="content Tuesday"></div>
-    <div class="content Wednesday"></div>
-    <div class="content Thursday"></div>
-    <div class="content Friday"></div>
-    <div class="content Saturday"></div>
-    <div class="content Sunday"></div>
+    <div class="monday"></div>
+    <div class="tuesday"></div>
+    <div class="wednesday"></div>
+    <div class="thursday"></div>
+    <div class="friday"></div>
+    <div class="saturday"></div>
+    <div class="sunday"></div>
   </section>
 
-  <form class="form_container">
+  <form>
     <i class="far fa-times-circle"></i>
 
     <label for="product_name">Nombre del producto:</label>
@@ -64,13 +62,13 @@
 
     <label for="days_usage">Días de uso:</label>
     <div>
-      <input name="monday" type="checkbox" value="Monday" />L
-      <input name="tuesday" type="checkbox" value="Tuesday" />M
-      <input name="wednesday" type="checkbox" value="Wednesday" />Mi
-      <input name="thursday" type="checkbox" value="Thursday" />J
-      <input name="friday" type="checkbox" value="Friday" />V
-      <input name="saturday" type="checkbox" value="Saturday" /> S
-      <input name="sunday" type="checkbox" value="Sunday" />D
+      <input name="monday" type="checkbox" value="monday" />L
+      <input name="tuesday" type="checkbox" value="tuesday" />M
+      <input name="wednesday" type="checkbox" value="wednesday" />Mi
+      <input name="thursday" type="checkbox" value="thursday" />J
+      <input name="friday" type="checkbox" value="friday" />V
+      <input name="saturday" type="checkbox" value="saturday" /> S
+      <input name="sunday" type="checkbox" value="sunday" />D
     </div>
 
     <button type="submit" class="submit_product">Añadir</button>
