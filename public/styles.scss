@@ -72,19 +72,19 @@ button:hover {
 }
 
 .grid>div:nth-of-type(n+8) {
-  background-color: rebeccapurple;
   height: fit-content;
 }
 
 /* --- Individual product cards --- */
 
-.content>.card {
+.card {
   background-color: rgb(193, 109, 160);
   border-radius: 10px;
   width: 95%;
   height: fit-content;
   color: white;
   margin: 0.2em;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* -- Form for adding products --*/

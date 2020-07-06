@@ -16,6 +16,7 @@ async function getDB() {
     .then((res) => {
       console.log(res);
       print(res);
+      return res;
     });
 }
 
@@ -66,20 +67,19 @@ function addProduct(event) {
 }
 
 function print(res) {
-  res.forEach((db_day) => {
-    console.log(db_day.name);
-    db_day.days.forEach((day) => console.log(day));
-  });
-  // week_containers.forEach((day, index) => {
-  //   console.log(db_day.days);
-  //   console.log(day.className, index);
-  //   if (db_day === day) {
-  //     let cards = `<div class="card">
-  // <p>${db_day.name}</p>
-  // <p>${db_day.type}</p>
-  // <p>Expira ${db_day.date}</p>
-  // </div>`;
+  res.map((db_product) => {
+    db_product.days.map((product_day) => {
+      week_containers.forEach((day, index) => {
+        if (product_day === day.className) {
+          let card = `<div class="card">
+          <p>${db_product.name}</p>
+          <p>${db_product.type}</p>
+          <p>Expira ${db_product.date}</p>
+          </div>`;
 
-  console.log(week_containers);
-  //week_containers[index].innerHTML += cards;
+          week_containers[index].innerHTML += card;
+        }
+      });
+    });
+  });
 }
