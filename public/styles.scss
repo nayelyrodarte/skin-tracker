@@ -73,7 +73,7 @@ button:hover {
 }
 
 // Card containers
-.grid>div:nth-of-type(n+8) {
+.grid>div:nth-of-type(n + 8) {
   min-height: 60vh;
   height: fit-content;
   align-items: start;
@@ -92,11 +92,17 @@ button:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.card p:last-of-type {
+  font-size: 0.6em;
+}
+
 .card>i {
   font-size: 0.8em;
   position: absolute;
   margin: 0.3em;
-  right: 50%;
+  right: 0.5em;
+  color: $primary-color;
+  opacity: 0.3;
 }
 
 /* -- Form --*/
@@ -137,7 +143,6 @@ form {
   }
 }
 
-
 /* Form close button */
 form>i {
   position: relative;
@@ -149,7 +154,6 @@ form>i {
 form>i:hover {
   color: $accent-color;
 }
-
 
 /* -- Modal -- */
 

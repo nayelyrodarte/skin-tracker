@@ -47,4 +47,15 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.delete('/:_id', async (req, res) => {
+  try {
+    Day.findOneAndDelete({ _id: req.params._id }).then(
+      res.status(200).json('Producto eliminado')
+    );
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json('Error del servidor').end();
+  }
+});
+
 module.exports = router;
