@@ -19,20 +19,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route PUT api/routine/:day
-// Add individual products to user selected days of the week
-// router.put('/:day', async (req, res) => {
-//   try {
-//     const day = await Day.findOneAndUpdate(
-//       { day: req.params.day },
-//       { $push: { products: req.body } }
-//     );
-//   } catch (error) {
-//     console.error(error.message);
-//     res.status(500).json('Error del servidor').end();
-//   }
-// });
-
+// @route POST api/routine
+// Add new product
 router.post('/', async (req, res) => {
   try {
     Day.create({
@@ -47,6 +35,8 @@ router.post('/', async (req, res) => {
   }
 });
 
+// @route DELETE api/routine/id
+// Delete product
 router.delete('/:_id', async (req, res) => {
   try {
     Day.findOneAndDelete({ _id: req.params._id }).then(

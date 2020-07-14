@@ -1,23 +1,23 @@
 const form = document.querySelector('form');
-const addproduct_button = document.querySelector('.form_button');
-const submitproduct_button = document.querySelector('.submit_product');
-const close_form = document.querySelector('form>i');
+const addProductBtn = document.querySelector('.form_button');
+const submitProductBtn = document.querySelector('.submit_product');
+const closeFormBtn = document.querySelector('form>i');
 const modal = document.querySelector('.modal');
-const days_selection = document.querySelectorAll('input[type="checkbox"]');
-const week_containers = document.querySelectorAll('.grid>div:nth-of-type(n+8)');
-const main_grid = document.querySelector('.grid');
+const daysOfUse = document.querySelectorAll('input[type="checkbox"]');
+const weeklyContainers = document.querySelectorAll(
+  '.grid>div:nth-of-type(n+8)'
+);
+const mainGrid = document.querySelector('.grid');
 
 // TODO
-// Get card items from DOM <-- async
-// Delete products functionatility
+// Delete card from DOM then from DB
 // Fix date format
-// Reloading after adding product
 // Add loaders
 
-addproduct_button.addEventListener('click', showModal);
-close_form.addEventListener('click', hideModal);
-submitproduct_button.addEventListener('click', addProduct);
-main_grid.addEventListener('click', deleteCard);
+addProductBtn.addEventListener('click', showModal);
+closeFormBtn.addEventListener('click', hideModal);
+submitProductBtn.addEventListener('click', addProduct);
+mainGrid.addEventListener('click', deleteCard);
 
 async function getDB() {
   const DB = await fetch(`http://localhost:8000/api/routine`)
@@ -25,7 +25,6 @@ async function getDB() {
     .then((res) => {
       console.log(res);
       print(res);
-
       return res;
     });
 }
@@ -43,7 +42,6 @@ function hideModal() {
 }
 
 function addProduct(event) {
-  event.preventDefault();
   hideModal();
 
   const newProduct = {
@@ -54,7 +52,7 @@ function addProduct(event) {
   };
 
   // Days of use checkboxes
-  for (week_day of days_selection) {
+  for (week_day of daysOfUse) {
     if (week_day.checked) {
       const day = week_day.value;
       newProduct.days.push(day);
@@ -78,19 +76,21 @@ function addProduct(event) {
 }
 
 function print(res) {
-  res.map((db_product) => {
-    db_product.days.map((product_day) => {
-      week_containers.forEach((week_day, index) => {
-        if (product_day === week_day.className) {
-          let card = `<div class="card" id="${db_product._id}" 
-          style="background-color: ${uiColors(product_day)}">
+  res.map((dbProduct) => {
+    dbProduct.days.map((dbDayOfUse) => {
+      weeklyContainers.forEach((weekDay, index) => {
+        if (dbDayOfUse === weekDay.className) {
+          const { name, type, date, _id } = dbProduct;
+
+          let card = `<div class="card" id="${_id}" 
+          style="background-color: ${uiColors(dbDayOfUse)}">
           <i class="far fa-times-circle close_card"></i>
-          <p>${db_product.name}</p>
-          <p>${db_product.type}</p>
-          <p>Expira ${db_product.date}</p>
+          <p>${name}</p>
+          <p>${type}</p>
+          <p>Expira ${date}</p>
           </div>`;
 
-          week_containers[index].innerHTML += card;
+          weeklyContainers[index].innerHTML += card;
         }
       });
     });
@@ -100,9 +100,11 @@ function print(res) {
 function uiColors(day) {
   switch (day) {
     case 'monday':
+    case 'saturday':
       return '#3F2D76';
       break;
     case 'tuesday':
+    case 'sunday':
       return '#5E548E';
       break;
     case 'wednesday':
@@ -119,9 +121,17 @@ function uiColors(day) {
 
 function deleteCard(e) {
   let id;
+  let cards;
 
   if (e.target.classList.contains('close_card')) {
     id = e.target.parentNode.getAttribute('id');
+    cards = document.querySelectorAll(`[id="${id}"]`);
+  }
+
+  function removeFromDOM() {
+    cards.forEach((card) => {
+      card.style.display = 'none';
+    });
   }
 
   const remove = {
@@ -134,6 +144,7 @@ function deleteCard(e) {
   fetch(`http://localhost:8000/api/routine/${id}`, remove)
     .then((response) => {
       console.log('Success:', response);
+      removeFromDOM();
       return response.json();
     })
     .catch((error) => console.error('Error:', error));

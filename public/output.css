@@ -53,14 +53,12 @@ button:hover {
 }
 
 .grid > div {
-  display: grid;
   background-color: #f5f4e8;
   height: 3em;
   border-radius: 15px;
-  justify-items: center;
-  align-items: center;
   grid-auto-rows: max-content;
   gap: 0.5em;
+  grid-auto-columns: minmax(100px, 180px);
 }
 
 .grid > div:nth-of-type(n + 8) {
@@ -71,10 +69,11 @@ button:hover {
 
 /* --- Individual product cards --- */
 .card {
+  word-wrap: break-word;
   position: relative;
   background-color: #c16da0;
   border-radius: 10px;
-  width: 70%;
+  max-width: 80%;
   height: fit-content;
   color: white;
   margin: 0.5em;
@@ -92,6 +91,19 @@ button:hover {
   right: 0.5em;
   color: #f5f4e8;
   opacity: 0.3;
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.hidden {
+  animation-name: disappear;
+  animation-duration: 2s;
 }
 
 /* -- Form --*/
@@ -168,7 +180,7 @@ form.active {
   }
 
   .card {
-    width: 70%;
+    width: 100%;
   }
 
   .card > i {

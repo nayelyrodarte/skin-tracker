@@ -61,19 +61,17 @@ button:hover {
   grid-template-columns: repeat(7, 1fr);
 }
 
-.grid>div {
-  display: grid;
+.grid > div {
   background-color: $primary-color;
   height: 3em;
   border-radius: 15px;
-  justify-items: center;
-  align-items: center;
   grid-auto-rows: max-content;
   gap: 0.5em;
+  grid-auto-columns: minmax(100px, 180px);
 }
 
 // Card containers
-.grid>div:nth-of-type(n + 8) {
+.grid > div:nth-of-type(n + 8) {
   min-height: 60vh;
   height: fit-content;
   align-items: start;
@@ -82,10 +80,11 @@ button:hover {
 /* --- Individual product cards --- */
 
 .card {
+  word-wrap: break-word;
   position: relative;
   background-color: rgb(193, 109, 160);
   border-radius: 10px;
-  width: 70%;
+  max-width: 80%;
   height: fit-content;
   color: white;
   margin: 0.5em;
@@ -96,13 +95,27 @@ button:hover {
   font-size: 0.6em;
 }
 
-.card>i {
+.card > i {
   font-size: 0.8em;
   position: absolute;
   margin: 0.3em;
   right: 0.5em;
   color: $primary-color;
   opacity: 0.3;
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.hidden {
+  animation-name: disappear;
+  animation-duration: 2s;
 }
 
 /* -- Form --*/
@@ -144,14 +157,14 @@ form {
 }
 
 /* Form close button */
-form>i {
+form > i {
   position: relative;
   justify-self: end;
   margin-bottom: 0.5em;
   color: rgb(144, 144, 144);
 }
 
-form>i:hover {
+form > i:hover {
   color: $accent-color;
 }
 
@@ -185,10 +198,10 @@ form.active {
   }
 
   .card {
-    width: 70%;
+    width: 100%;
   }
 
-  .card>i {
+  .card > i {
     left: 88%;
   }
 
