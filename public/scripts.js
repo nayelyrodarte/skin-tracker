@@ -3,21 +3,22 @@ const addProductBtn = document.querySelector('.form_button');
 const submitProductBtn = document.querySelector('.submit_product');
 const closeFormBtn = document.querySelector('form>i');
 const modal = document.querySelector('.modal');
+const deletedProductModal = document.querySelector('.modal.deletedProduct');
 const daysOfUse = document.querySelectorAll('input[type="checkbox"]');
 const weeklyContainers = document.querySelectorAll(
   '.grid>div:nth-of-type(n+8)'
 );
-const mainGrid = document.querySelector('.grid');
+const body = document.querySelector('body');
 
 // TODO
-// Delete card from DOM then from DB
+// Add confirmation window for deleting products
 // Fix date format
 // Add loaders
 
 addProductBtn.addEventListener('click', showModal);
 closeFormBtn.addEventListener('click', hideModal);
 submitProductBtn.addEventListener('click', addProduct);
-mainGrid.addEventListener('click', deleteCard);
+body.addEventListener('click', deleteCard);
 
 async function getDB() {
   const DB = await fetch(`http://localhost:8000/api/routine`)
@@ -123,29 +124,42 @@ function deleteCard(e) {
   let id;
   let cards;
 
+  // Close button from individual cards
   if (e.target.classList.contains('close_card')) {
     id = e.target.parentNode.getAttribute('id');
     cards = document.querySelectorAll(`[id="${id}"]`);
+    deletedProductModal.style.display = 'block';
+    modal.classList.add('overlay');
+    removeFromDOM(cards);
   }
 
   function removeFromDOM() {
-    cards.forEach((card) => {
-      card.style.display = 'none';
+    // Delete/cancel buttons from warning window
+    document.querySelector('.deleteButton').addEventListener('click', () => {
+      cards.forEach((card) => {
+        card.style.display = 'none';
+      });
+      deletedProductModal.style.display = 'none';
+      modal.classList.remove('overlay');
+
+      const remove = {
+        method: 'delete',
+        headers: {
+          'Content-type': 'application/json',
+        },
+      };
+
+      fetch(`http://localhost:8000/api/routine/${id}`, remove)
+        .then((response) => {
+          console.log('Success:', response);
+          return response.json();
+        })
+        .catch((error) => console.error('Error:', error));
+    });
+
+    document.querySelector('.cancelButton').addEventListener('click', () => {
+      deletedProductModal.style.display = 'none';
+      modal.classList.remove('overlay');
     });
   }
-
-  const remove = {
-    method: 'delete',
-    headers: {
-      'Content-type': 'application/json',
-    },
-  };
-
-  fetch(`http://localhost:8000/api/routine/${id}`, remove)
-    .then((response) => {
-      console.log('Success:', response);
-      removeFromDOM();
-      return response.json();
-    })
-    .catch((error) => console.error('Error:', error));
 }
