@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 app.use('/api/routine', require('./API/routes/routine'));
 app.use('/', express.static('public'));
+app.use('/API', express.static('API'));
 
 app.listen(process.env.PORT, function () {
   console.log('Levantando servidor en');

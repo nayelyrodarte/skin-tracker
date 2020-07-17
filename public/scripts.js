@@ -1,3 +1,5 @@
+import { getRoutine, postProduct, removeProduct } from '../API/methods.js';
+
 const form = document.querySelector('form');
 const addProductBtn = document.querySelector('.form_button');
 const submitProductBtn = document.querySelector('.submit_product');
@@ -20,17 +22,7 @@ closeFormBtn.addEventListener('click', hideModal);
 submitProductBtn.addEventListener('click', addProduct);
 body.addEventListener('click', deleteCard);
 
-async function getDB() {
-  const DB = await fetch(`http://localhost:8000/api/routine`)
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res);
-      print(res);
-      return res;
-    });
-}
-
-getDB();
+getRoutine(printCards);
 
 function showModal() {
   form.classList.add('active');
@@ -60,23 +52,10 @@ function addProduct(event) {
     }
   }
 
-  const post = {
-    method: 'post',
-    body: JSON.stringify(newProduct),
-    headers: {
-      'Content-type': 'application/json',
-    },
-  };
-
-  fetch(`http://localhost:8000/api/routine/`, post)
-    .then((response) => {
-      console.log('Success:', response);
-      return response.json();
-    })
-    .catch((error) => console.error('Error:', error));
+  postProduct(newProduct);
 }
 
-function print(res) {
+function printCards(res) {
   res.map((dbProduct) => {
     dbProduct.days.map((dbDayOfUse) => {
       weeklyContainers.forEach((weekDay, index) => {
@@ -142,19 +121,7 @@ function deleteCard(e) {
       deletedProductModal.style.display = 'none';
       modal.classList.remove('overlay');
 
-      const remove = {
-        method: 'delete',
-        headers: {
-          'Content-type': 'application/json',
-        },
-      };
-
-      fetch(`http://localhost:8000/api/routine/${id}`, remove)
-        .then((response) => {
-          console.log('Success:', response);
-          return response.json();
-        })
-        .catch((error) => console.error('Error:', error));
+      removeProduct(id);
     });
 
     document.querySelector('.cancelButton').addEventListener('click', () => {
