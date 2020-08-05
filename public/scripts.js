@@ -1,83 +1,94 @@
 import { getRoutine, postProduct, removeProduct } from '../API/methods.js';
 
-const form = document.querySelector('form');
-const addProductBtn = document.querySelector('.form_button');
-const submitProductBtn = document.querySelector('.submit_product');
-const closeFormBtn = document.querySelector('form>i');
-const modal = document.querySelector('.modal');
-const deletedProductModal = document.querySelector('.modal.deletedProduct');
-const daysOfUse = document.querySelectorAll('input[type="checkbox"]');
-const weeklyContainers = document.querySelectorAll(
-  '.grid>div:nth-of-type(n+8)'
-);
 const body = document.querySelector('body');
+const form = document.querySelector('form');
 
 // TODO
-// Add confirmation window for deleting products
 // Fix date format
 // Add loaders
 
-addProductBtn.addEventListener('click', showModal);
-closeFormBtn.addEventListener('click', hideModal);
-submitProductBtn.addEventListener('click', addProduct);
-body.addEventListener('click', deleteCard);
+body.addEventListener('click', showModal);
+body.addEventListener('click', hideModal);
+body.addEventListener('click', addNewProduct);
+body.addEventListener('click', deleteCards);
 
+// Get all routine from DB & print UI
 getRoutine(printCards);
 
-function showModal() {
-  form.classList.add('active');
-  modal.classList.add('overlay');
-}
+const targetHasClass = (target, className) =>
+  target.classList.contains(className);
 
-function hideModal() {
-  form.classList.remove('active');
-  modal.classList.remove('overlay');
-}
-
-function addProduct(event) {
-  hideModal();
-
-  const newProduct = {
-    name: event.target.form.product_name.value,
-    type: event.target.form.product_type.value,
-    date: event.target.form.exp_date.value,
-    days: [],
-  };
-
-  // Days of use checkboxes
-  for (week_day of daysOfUse) {
-    if (week_day.checked) {
-      const day = week_day.value;
-      newProduct.days.push(day);
-    }
+function showModal(e) {
+  if (targetHasClass(e.target, 'addProduct')) {
+    form.classList.add('active');
+    document.querySelector('.modalOverlay').classList.add('overlay');
   }
+}
 
-  postProduct(newProduct);
+function hideModal(e) {
+  if (
+    targetHasClass(e.target, 'closeFormButton') ||
+    targetHasClass(e.target, 'submitProduct')
+  ) {
+    form.classList.remove('active');
+    document.querySelector('.modalOverlay').classList.remove('overlay');
+  } else if (
+    targetHasClass(e.target, 'cancelButton') ||
+    targetHasClass(e.target, 'deleteProduct')
+  ) {
+    document.querySelector('.deletedProductModal').style.display = 'none';
+    document.querySelector('.modalOverlay').classList.remove('overlay');
+  }
+}
+
+function addNewProduct(e) {
+  if (targetHasClass(e.target, 'submitProduct')) {
+    const newProduct = {
+      name: e.target.form.product_name.value,
+      type: e.target.form.product_type.value,
+      date: e.target.form.exp_date.value,
+      days: [],
+    };
+
+    const newProductUsage = document.querySelectorAll('input[type="checkbox"]');
+
+    for (let day of newProductUsage) {
+      if (day.checked) {
+        newProduct.days.push(day.value);
+      }
+    }
+    // Post product to DB
+    postProduct(newProduct);
+  }
 }
 
 function printCards(res) {
-  res.map((dbProduct) => {
-    dbProduct.days.map((dbDayOfUse) => {
-      weeklyContainers.forEach((weekDay, index) => {
-        if (dbDayOfUse === weekDay.className) {
-          const { name, type, date, _id } = dbProduct;
+  const calendarContainers = document.querySelectorAll(
+    '.calendar>div:nth-of-type(n+8)'
+  );
 
-          let card = `<div class="card" id="${_id}" 
-          style="background-color: ${uiColors(dbDayOfUse)}">
-          <i class="far fa-times-circle close_card"></i>
+  res.map((productFromDB) => {
+    productFromDB.days.map((weekdayFromDB) => {
+      calendarContainers.forEach((calendarDay, index) => {
+        if (weekdayFromDB === calendarDay.className) {
+          const { name, type, date, _id } = productFromDB;
+
+          let card = `<div class="card" id="${_id}"
+          style="background-color: ${cardColors(weekdayFromDB)}">
+          <i class="far fa-times-circle deleteCard"></i>
           <p>${name}</p>
           <p>${type}</p>
           <p>Expira ${date}</p>
           </div>`;
 
-          weeklyContainers[index].innerHTML += card;
+          calendarContainers[index].innerHTML += card;
         }
       });
     });
   });
 }
 
-function uiColors(day) {
+function cardColors(day) {
   switch (day) {
     case 'monday':
     case 'saturday':
@@ -99,34 +110,23 @@ function uiColors(day) {
   }
 }
 
-function deleteCard(e) {
+function deleteCards(e) {
   let id;
-  let cards;
 
-  // Close button from individual cards
-  if (e.target.classList.contains('close_card')) {
+  if (targetHasClass(e.target, 'deleteCard')) {
+    document.querySelector('.deletedProductModal').style.display = 'block';
+    document.querySelector('.modalOverlay').classList.add('overlay');
+    // get selected card's id
     id = e.target.parentNode.getAttribute('id');
-    cards = document.querySelectorAll(`[id="${id}"]`);
-    deletedProductModal.style.display = 'block';
-    modal.classList.add('overlay');
-    removeFromDOM(cards);
+
+    document.querySelector('.deleteProduct').addEventListener('click', remove);
   }
 
-  function removeFromDOM() {
-    // Delete/cancel buttons from warning window
-    document.querySelector('.deleteButton').addEventListener('click', () => {
-      cards.forEach((card) => {
-        card.style.display = 'none';
-      });
-      deletedProductModal.style.display = 'none';
-      modal.classList.remove('overlay');
-
-      removeProduct(id);
+  function remove() {
+    document.querySelectorAll(`[id="${id}"]`).forEach((card) => {
+      card.style.display = 'none';
     });
-
-    document.querySelector('.cancelButton').addEventListener('click', () => {
-      deletedProductModal.style.display = 'none';
-      modal.classList.remove('overlay');
-    });
+    //remove from DB
+    removeProduct(id);
   }
 }

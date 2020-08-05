@@ -53,7 +53,7 @@ button:hover {
 
 /* -- Calendar main grid --*/
 
-.grid {
+.calendar {
   align-items: flex-start;
   margin: 2em 0.5em;
   width: 98vw;
@@ -62,7 +62,7 @@ button:hover {
   grid-template-columns: repeat(7, 1fr);
 }
 
-.grid > div {
+.calendar>div {
   background-color: $primary-color;
   height: 3em;
   border-radius: 15px;
@@ -72,7 +72,7 @@ button:hover {
 }
 
 // Card containers
-.grid > div:nth-of-type(n + 8) {
+.calendar>div:nth-of-type(n + 8) {
   min-height: 60vh;
   height: fit-content;
   align-items: start;
@@ -96,7 +96,7 @@ button:hover {
   font-size: 0.6em;
 }
 
-.card > i {
+.card>i {
   font-size: 0.8em;
   position: absolute;
   margin: 0.3em;
@@ -144,14 +144,14 @@ form {
 }
 
 /* Form close button */
-form > i {
+form>i {
   position: relative;
   justify-self: end;
   margin-bottom: 0.5em;
   color: $modal-color;
 }
 
-form > i:hover {
+form>i:hover {
   color: $accent-color;
 }
 
@@ -173,7 +173,7 @@ form > i:hover {
   z-index: 1;
 }
 
-.modal.deletedProduct {
+.deletedProductModal {
   background-color: rgb(199, 197, 197);
   border-radius: 5px;
   display: none;
@@ -204,7 +204,7 @@ form > i:hover {
     width: 100%;
   }
 
-  .card > i {
+  .card>i {
     left: 88%;
   }
 
