@@ -15,5 +15,6 @@ Example:
 `PORT = 8000`
 `MONGODB = *Insert your MONGODB uri.*`
 
-2. Run npm start on your terminal. 
+2. Run `npm start` on your terminal. 
+
 
