@@ -14,8 +14,7 @@ body.addEventListener('click', hideModal);
 body.addEventListener('click', addNewProduct);
 body.addEventListener('click', deleteCards);
 
-// Get all skincare routine from DB & print UI
-rest.get(printCards);
+rest.get(printProductCards);
 
 const targetHasClass = (target, className) =>
   target.classList.contains(className);
@@ -35,8 +34,8 @@ function hideModal(e) {
     form.classList.remove('active');
     document.querySelector('.modalOverlay').classList.remove('overlay');
   } else if (
-    targetHasClass(e.target, 'cancelButton') ||
-    targetHasClass(e.target, 'deleteProduct')
+    targetHasClass(e.target, 'cancel') ||
+    targetHasClass(e.target, 'delete')
   ) {
     document.querySelector('.deletedProductModal').style.display = 'none';
     document.querySelector('.modalOverlay').classList.remove('overlay');
@@ -78,7 +77,7 @@ function addNewProduct(e) {
   }
 }
 
-function printCards(res) {
+function printProductCards(res) {
   const calendarContainers = document.querySelectorAll(
     '.calendar>div:nth-of-type(n+8)'
   );
@@ -91,7 +90,7 @@ function printCards(res) {
 
           let card = `<div class="card" id="${_id}"
           style="background-color: ${cardColors(weekdayFromDB)}">
-          <i class="far fa-times-circle deleteCard"></i>
+          <i class="far fa-times-circle deleteCardButton"></i>
           <p>${name}</p>
           <p>${type}</p>
           <p>Expira ${date}</p>
@@ -127,21 +126,21 @@ function cardColors(day) {
 }
 
 function deleteCards(e) {
-  let id;
+  let cardToDeleteId;
 
-  if (targetHasClass(e.target, 'deleteCard')) {
+  if (targetHasClass(e.target, 'deleteCardButton')) {
     document.querySelector('.deletedProductModal').style.display = 'block';
     document.querySelector('.modalOverlay').classList.add('overlay');
     // get selected card's id
-    id = e.target.parentNode.getAttribute('id');
+    cardToDeleteId = e.target.parentNode.getAttribute('id');
 
-    document.querySelector('.deleteProduct').addEventListener('click', remove);
+    document.querySelector('button.delete').addEventListener('click', remove);
   }
 
   function remove() {
-    document.querySelectorAll(`[id="${id}"]`).forEach((card) => {
+    document.querySelectorAll(`[id="${cardToDeleteId}"]`).forEach((card) => {
       card.style.display = 'none';
     });
-    rest.delete(id);
+    rest.delete(cardToDeleteId);
   }
 }
