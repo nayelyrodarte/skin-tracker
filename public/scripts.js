@@ -4,12 +4,12 @@ const body = document.querySelector('body');
 const form = document.querySelector('form');
 
 // TODO
-// Fix date format *
 // Make inputs required *
 // fix cards in routine order *
 // add button to delete all routine
 // add counter for days of product usage *
 // Remove dropdown native styling from browser (.webkit-appearance: none)
+// refactor print cards function *
 // Add loaders
 // change class names (BEM)
 // add instructions
@@ -28,6 +28,9 @@ const targetHasClass = (target, className) =>
 function showModal(e) {
   if (targetHasClass(e.target, 'addProduct')) {
     form.classList.add('active');
+    document.querySelector('.modalOverlay').classList.add('overlay');
+  } else if (targetHasClass(e.target, 'deleteCardButton')) {
+    document.querySelector('.deletedProductModal').style.display = 'block';
     document.querySelector('.modalOverlay').classList.add('overlay');
   }
 }
@@ -57,15 +60,15 @@ function addNewProduct(e) {
       days: [],
     };
 
-    const newProductUsage = document.querySelectorAll('input[type="checkbox"]');
+    const daysOfUseCheckboxes = document.querySelectorAll(
+      'input[type="checkbox"]'
+    );
 
-    for (let day of newProductUsage) {
-      if (day.checked) {
-        newProduct.days.push(day.value);
+    for (let checkbox of daysOfUseCheckboxes) {
+      if (checkbox.checked) {
+        newProduct.days.push(checkbox.value);
       }
     }
-
-    // Post product to DB
     rest.post(newProduct);
   }
 }
@@ -135,15 +138,13 @@ function deleteCards(e) {
   let cardToDeleteId;
 
   if (targetHasClass(e.target, 'deleteCardButton')) {
-    document.querySelector('.deletedProductModal').style.display = 'block';
-    document.querySelector('.modalOverlay').classList.add('overlay');
-    // get selected card's id
     cardToDeleteId = e.target.parentNode.getAttribute('id');
-
-    document.querySelector('button.delete').addEventListener('click', remove);
+    document
+      .querySelector('button.delete')
+      .addEventListener('click', removeFromDOMAndDatabase);
   }
 
-  function remove() {
+  function removeFromDOMAndDatabase() {
     document.querySelectorAll(`[id="${cardToDeleteId}"]`).forEach((card) => {
       card.style.display = 'none';
     });
