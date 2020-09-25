@@ -29,7 +29,7 @@ function showModal(e) {
 function hideModal(e) {
   if (
     targetHasClass(e.target, 'closeFormButton') ||
-    targetHasClass(e.target, 'submitProduct')
+    targetHasClass(e.target, 'submitProductButton')
   ) {
     form.classList.remove('active');
     document.querySelector('.modalOverlay').classList.remove('overlay');
@@ -43,8 +43,8 @@ function hideModal(e) {
 }
 
 function addNewProduct(e) {
-  if (targetHasClass(e.target, 'submitProduct')) {
-    e.preventDefault();
+  if (targetHasClass(e.target, 'submitProductButton')) {
+    //e.preventDefault();
     const newProduct = {
       name: e.target.form.product_name.value,
       type: e.target.form.product_type.value,
@@ -90,7 +90,7 @@ function printProductCards(res) {
 
           let card = `<div class="card" id="${_id}"
           style="background-color: ${cardColors(weekdayFromDB)}">
-          <i class="far fa-times-circle deleteCardButton"></i>
+          <i class="fa fa-times-circle deleteCardButton"></i>
           <p>${name}</p>
           <p>${type}</p>
           <p>Expira ${date}</p>
