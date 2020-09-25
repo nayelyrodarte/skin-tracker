@@ -1,10 +1,12 @@
-import { getRoutine, postProduct, removeProduct } from '../API/methods.js';
+import { rest } from '../API/rest.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('form');
 
 // TODO
-// Fix date format
+// Fix date format :@@@
+// Make inputs required
+// Remove dropdown native styling from browser (.webkit-appearance: none)
 // Add loaders
 
 body.addEventListener('click', showModal);
@@ -12,8 +14,8 @@ body.addEventListener('click', hideModal);
 body.addEventListener('click', addNewProduct);
 body.addEventListener('click', deleteCards);
 
-// Get all routine from DB & print UI
-getRoutine(printCards);
+// Get all skincare routine from DB & print UI
+rest.get(printCards);
 
 const targetHasClass = (target, className) =>
   target.classList.contains(className);
@@ -43,10 +45,11 @@ function hideModal(e) {
 
 function addNewProduct(e) {
   if (targetHasClass(e.target, 'submitProduct')) {
+    e.preventDefault();
     const newProduct = {
       name: e.target.form.product_name.value,
       type: e.target.form.product_type.value,
-      date: e.target.form.exp_date.value,
+      date: e.target.form.exp_date.value.slice(0, 10),
       days: [],
     };
 
@@ -57,8 +60,21 @@ function addNewProduct(e) {
         newProduct.days.push(day.value);
       }
     }
+
+    // function formattedDate() {
+    //   let d = newProduct.date;
+    //   let month = String(d.getMonth() + 1);
+    //   let day = String(d.getDate());
+    //   const year = String(d.getFullYear());
+
+    //   if (month.length < 2) month = '0' + month;
+    //   if (day.length < 2) day = '0' + day;
+
+    //   return `${day}/${month}/${year}`;
+    // }
+
     // Post product to DB
-    postProduct(newProduct);
+    rest.post(newProduct);
   }
 }
 
@@ -126,7 +142,6 @@ function deleteCards(e) {
     document.querySelectorAll(`[id="${id}"]`).forEach((card) => {
       card.style.display = 'none';
     });
-    //remove from DB
-    removeProduct(id);
+    rest.delete(id);
   }
 }
