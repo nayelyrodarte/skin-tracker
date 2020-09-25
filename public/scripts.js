@@ -4,10 +4,16 @@ const body = document.querySelector('body');
 const form = document.querySelector('form');
 
 // TODO
-// Fix date format :@@@
-// Make inputs required
+// Fix date format *
+// Make inputs required *
+// fix cards in routine order *
+// add button to delete all routine
+// add counter for days of product usage *
 // Remove dropdown native styling from browser (.webkit-appearance: none)
 // Add loaders
+// change class names (BEM)
+// add instructions
+// update readme
 
 body.addEventListener('click', showModal);
 body.addEventListener('click', hideModal);
@@ -44,11 +50,10 @@ function hideModal(e) {
 
 function addNewProduct(e) {
   if (targetHasClass(e.target, 'submitProductButton')) {
-    //e.preventDefault();
     const newProduct = {
       name: e.target.form.product_name.value,
       type: e.target.form.product_type.value,
-      date: e.target.form.exp_date.value.slice(0, 10),
+      date: e.target.form.exp_date.value.toString(),
       days: [],
     };
 
@@ -59,18 +64,6 @@ function addNewProduct(e) {
         newProduct.days.push(day.value);
       }
     }
-
-    // function formattedDate() {
-    //   let d = newProduct.date;
-    //   let month = String(d.getMonth() + 1);
-    //   let day = String(d.getDate());
-    //   const year = String(d.getFullYear());
-
-    //   if (month.length < 2) month = '0' + month;
-    //   if (day.length < 2) day = '0' + day;
-
-    //   return `${day}/${month}/${year}`;
-    // }
 
     // Post product to DB
     rest.post(newProduct);
@@ -93,7 +86,7 @@ function printProductCards(res) {
           <i class="fa fa-times-circle deleteCardButton"></i>
           <p>${name}</p>
           <p>${type}</p>
-          <p>Expira ${date}</p>
+          <p>Expira ${formateDate(date)}</p>
           </div>`;
 
           calendarContainers[index].innerHTML += card;
@@ -101,6 +94,19 @@ function printProductCards(res) {
       });
     });
   });
+}
+
+function formateDate(date) {
+  if (date !== null) {
+    let regex = /(\d{1,4})-(\d{1,2})-(\d{1,2})/;
+    let match = date.match(regex);
+
+    const day = match[3];
+    const month = match[2];
+    const year = match[1];
+
+    return `${day}/${month}/${year}`;
+  }
 }
 
 function cardColors(day) {
