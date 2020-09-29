@@ -3,18 +3,6 @@ import { rest } from '../API/rest.js';
 const body = document.querySelector('body');
 const form = document.querySelector('form');
 
-// TODO
-// Make inputs required *
-// fix cards in routine order *
-// add button to delete all routine
-// add counter for days of product usage *
-// Remove dropdown native styling from browser (.webkit-appearance: none)
-// refactor print cards function *
-// Add loaders
-// change class names (BEM)
-// add instructions
-// update readme
-
 body.addEventListener('click', showModal);
 body.addEventListener('click', hideModal);
 body.addEventListener('click', addNewProduct);
@@ -75,7 +63,7 @@ function addNewProduct(e) {
 
 function printProductCards(res) {
   const calendarContainers = document.querySelectorAll(
-    '.calendar>div:nth-of-type(n+8)'
+    '.calendar-container>div:nth-of-type(n+8)'
   );
 
   res.map((productFromDB) => {
