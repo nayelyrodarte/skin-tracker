@@ -53,7 +53,7 @@ button:hover {
 
 /* -- Calendar main grid --*/
 
-.calendar {
+.calendar-container {
   align-items: flex-start;
   margin: 2em 0.5em;
   width: 98vw;
@@ -62,7 +62,7 @@ button:hover {
   grid-template-columns: repeat(7, 1fr);
 }
 
-.calendar>div {
+.calendar-container>div {
   background-color: $primary-color;
   height: 3em;
   border-radius: 15px;
@@ -71,8 +71,14 @@ button:hover {
   grid-auto-columns: minmax(100px, 180px);
 }
 
+.day {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
 // Card containers
-.calendar>div:nth-of-type(n + 8) {
+.calendar-container>div:nth-of-type(n + 8) {
   min-height: 60vh;
   height: fit-content;
   align-items: start;
@@ -192,7 +198,7 @@ form>i:hover {
 /* ------- */
 
 @media screen and (max-width: $breakpoint-tablet_max) {
-  .grid {
+  .calendar-container {
     margin: auto;
     margin-top: 2em;
     grid-template-columns: 1fr;
