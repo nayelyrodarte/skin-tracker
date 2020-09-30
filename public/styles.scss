@@ -23,7 +23,7 @@ $breakpoint-tablet_max: 1020px;
   src: url(./fonts/Misses.otf);
 }
 
-h1 {
+header h1 {
   text-align: center;
   font-family: $primary-font;
   font-size: 50px;
@@ -31,8 +31,7 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-/* --- Logo --- */
-img {
+header img {
   margin-top: 1rem;
   width: 3rem;
 }
