@@ -1,4 +1,6 @@
-import { rest } from '../API/rest.js';
+import {
+  rest
+} from '../API/rest.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('form');
@@ -16,10 +18,11 @@ const targetHasClass = (target, className) =>
 function showModal(e) {
   if (targetHasClass(e.target, 'addProduct')) {
     form.classList.add('active');
+    document.querySelector('.modalOverlay').style.display = 'block';
   } else if (targetHasClass(e.target, 'deleteCardButton')) {
-    document.querySelector('.deletedProductModal').add('inactive');
+    document.querySelector('.deletedProductModal').style.display = 'block';
+    document.querySelector('.modalOverlay').style.display = 'block';
   }
-  document.querySelector('.modalOverlay').classList.add('overlay');
 }
 
 function hideModal(e) {
@@ -28,13 +31,14 @@ function hideModal(e) {
     targetHasClass(e.target, 'submitProductButton')
   ) {
     form.classList.remove('active');
+    document.querySelector('.modalOverlay').style.display = 'none';
   } else if (
     targetHasClass(e.target, 'cancel') ||
     targetHasClass(e.target, 'delete')
   ) {
-    document.querySelector('.deletedProductModal').add('inactive');
+    document.querySelector('.deletedProductModal').style.display = 'none';
+    document.querySelector('.modalOverlay').style.display = 'none';
   }
-  document.querySelector('.modalOverlay').classList.remove('overlay');
 }
 
 function addNewProduct(e) {
@@ -61,14 +65,19 @@ function addNewProduct(e) {
 
 function printProductCards(res) {
   const calendarContainers = document.querySelectorAll(
-    '.calendar-container>div:nth-of-type(n+8)'
+    '.calendar__container'
   );
 
   res.map((productFromDB) => {
     productFromDB.days.map((weekdayFromDB) => {
       calendarContainers.forEach((calendarDay, index) => {
         if (weekdayFromDB === calendarDay.className) {
-          const { name, type, date, _id } = productFromDB;
+          const {
+            name,
+            type,
+            date,
+            _id
+          } = productFromDB;
 
           let card = `<div class="card" id="${_id}"
           style="background-color: ${cardColors(weekdayFromDB)}">
@@ -121,19 +130,25 @@ function cardColors(day) {
 }
 
 function deleteCards(e) {
-  let cardToDeleteId;
+  let productToDelete = '';
 
   if (targetHasClass(e.target, 'deleteCardButton')) {
-    cardToDeleteId = e.target.parentNode.getAttribute('id');
-    document
-      .querySelector('button.delete')
-      .addEventListener('click', removeFromDOMAndDatabase);
+    let id = e.target.parentNode.id;
+    productToDelete = document.querySelectorAll(`[id="${id}"]`);
+  } else if (targetHasClass(e.target, 'reset')) {
+    productToDelete = document.querySelectorAll('.card');
   }
 
-  function removeFromDOMAndDatabase() {
-    document.querySelectorAll(`[id="${cardToDeleteId}"]`).forEach((card) => {
-      card.style.display = 'none';
-    });
-    rest.delete(cardToDeleteId);
+  if (productToDelete.length) {
+    document
+      .querySelector('button.delete')
+      .addEventListener('click', removeFromDOMAndDatabase(productToDelete));
   }
+}
+
+function removeFromDOMAndDatabase(querySelector) {
+  querySelector.forEach((item) => {
+    item.remove();
+    rest.delete(item.id);
+  });
 }
