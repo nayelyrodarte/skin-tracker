@@ -125,6 +125,11 @@ form i {
 form i:hover {
   color: #dd2a7b;
 }
+form .alert {
+  background-color: #dd2a7b;
+  border-radius: 15px;
+  color: beige;
+}
 
 .modal {
   background-color: #c7c5c5;

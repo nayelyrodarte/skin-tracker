@@ -144,6 +144,11 @@ form {
     }
   }
 
+  .alert {
+    background-color: $accent-color;
+    border-radius: 15px;
+    color: beige;
+  }
 }
 
 .modal {

@@ -56,16 +56,14 @@
   </section>
 
   <form>
+    <div class="alert"></div>
     <button type="button"><i class="fa fa-times-circle form__close-button"></i></button>
 
     <label for="product_name">Nombre del producto:</label>
-    <input type="text" name="product_name" />
+    <input type="text" name="product_name"/>
 
     <label for="product_type">Tipo de producto:</label>
     <input name="product_type" list="productsDropdown" />
-
-    <label for="exp_date">Fecha de expiración</label>
-    <input type="date" name="exp_date" />
 
     <datalist id="productsDropdown">
       <option>Limpiador</option>
@@ -77,6 +75,9 @@
       <option>Crema humectante</option>
       <option>Protector Solar</option>
     </datalist>
+
+    <label for="exp_date">Fecha de expiración</label>
+    <input type="date" name="exp_date"/>
 
     <label for="days_usage">Días de uso:</label>
     <div>

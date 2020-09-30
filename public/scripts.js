@@ -24,10 +24,7 @@ function showModal(e) {
 }
 
 function hideModal(e) {
-  if (
-    targetHasClass(e.target, 'form__close-button') ||
-    targetHasClass(e.target, 'form__submit-button')
-  ) {
+  if (targetHasClass(e.target, 'form__close-button')) {
     form.classList.remove('active');
     document.querySelector('.modal__overlay').style.display = 'none';
   } else if (
@@ -41,23 +38,34 @@ function hideModal(e) {
 
 function addNewProduct(e) {
   if (targetHasClass(e.target, 'form__submit-button')) {
-    const newProduct = {
-      name: e.target.form.product_name.value,
-      type: e.target.form.product_type.value,
-      date: e.target.form.exp_date.value.toString(),
-      days: [],
-    };
+    if (
+      form.product_name.value === '' ||
+      form.product_type.value === '' ||
+      form.exp_date.value === ''
+    ) {
+      e.preventDefault();
+      form.classList.add('active');
+      document.querySelector('.alert').textContent =
+        'Completa todos los campos';
+    } else {
+      const newProduct = {
+        name: e.target.form.product_name.value,
+        type: e.target.form.product_type.value,
+        date: e.target.form.exp_date.value.toString(),
+        days: [],
+      };
 
-    const daysOfUseCheckboxes = document.querySelectorAll(
-      'input[type="checkbox"]'
-    );
+      const daysOfUseCheckboxes = document.querySelectorAll(
+        'input[type="checkbox"]'
+      );
 
-    for (let checkbox of daysOfUseCheckboxes) {
-      if (checkbox.checked) {
-        newProduct.days.push(checkbox.value);
+      for (let checkbox of daysOfUseCheckboxes) {
+        if (checkbox.checked) {
+          newProduct.days.push(checkbox.value);
+        }
       }
+      rest.post(newProduct);
     }
-    rest.post(newProduct);
   }
 }
 
