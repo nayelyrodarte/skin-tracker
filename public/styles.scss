@@ -120,6 +120,19 @@ form {
     margin: 0.5em;
   }
 
+  .form__close-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    right: 5%;
+    top: 1%;
+    position: absolute;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
   input {
     border-radius: 10px;
     border: none;
@@ -148,6 +161,7 @@ form {
     background-color: $accent-color;
     border-radius: 15px;
     color: beige;
+    margin: 0.5em;
   }
 }
 

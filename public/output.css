@@ -105,6 +105,17 @@ form button {
   justify-self: center;
   margin: 0.5em;
 }
+form .form__close-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  right: 5%;
+  top: 1%;
+  position: absolute;
+}
+form .form__close-button:focus {
+  outline: 0;
+}
 form input {
   border-radius: 10px;
   border: none;
@@ -129,6 +140,7 @@ form .alert {
   background-color: #dd2a7b;
   border-radius: 15px;
   color: beige;
+  margin: 0.5em;
 }
 
 .modal {

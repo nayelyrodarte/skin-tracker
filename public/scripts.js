@@ -25,6 +25,7 @@ function showModal(e) {
 
 function hideModal(e) {
   if (targetHasClass(e.target, 'form__close-button')) {
+    console.log('Hola');
     form.classList.remove('active');
     document.querySelector('.modal__overlay').style.display = 'none';
   } else if (
