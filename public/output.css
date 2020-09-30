@@ -113,9 +113,6 @@ form .form__close-button {
   top: 1%;
   position: absolute;
 }
-form .form__close-button:focus {
-  outline: 0;
-}
 form input {
   border-radius: 10px;
   border: none;
@@ -163,7 +160,8 @@ form .alert {
   display: block;
 }
 
-.overlay {
+.modal__overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;

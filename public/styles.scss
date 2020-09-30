@@ -128,9 +128,9 @@ form {
     top: 1%;
     position: absolute;
 
-    &:focus {
-      outline: 0;
-    }
+    // &:focus {
+    //   outline: 0;
+    // }
   }
 
   input {
@@ -185,7 +185,8 @@ form {
   display: block;
 }
 
-.overlay {
+.modal__overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
