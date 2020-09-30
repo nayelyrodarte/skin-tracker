@@ -14,7 +14,7 @@
   font-family: "Misses";
   src: url(./fonts/Misses.otf);
 }
-h1 {
+header h1 {
   text-align: center;
   font-family: "Misses";
   font-size: 50px;
@@ -22,8 +22,7 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-/* --- Logo --- */
-img {
+header img {
   margin-top: 1rem;
   width: 3rem;
 }
@@ -42,42 +41,30 @@ button:hover {
   cursor: grabbing;
 }
 
-/* -- Calendar main grid --*/
-.calendar-container {
-  align-items: flex-start;
+.calendar {
   margin: 2em 0.5em;
   width: 98vw;
   gap: 0.5em;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
-
-.calendar-container > div {
+.calendar div {
   background-color: #f5f4e8;
-  height: 3em;
   border-radius: 15px;
-  grid-auto-rows: max-content;
-  gap: 0.5em;
-  grid-auto-columns: minmax(100px, 180px);
 }
-
-.day {
-  display: grid;
-  justify-content: center;
-  align-content: center;
+.calendar .calendar__day-title {
+  height: 3em;
 }
-
-.calendar-container > div:nth-of-type(n + 8) {
-  min-height: 60vh;
+.calendar .calendar__container {
+  min-height: 55vh;
   height: fit-content;
   align-items: start;
 }
 
-/* --- Individual product cards --- */
 .card {
   word-wrap: break-word;
   position: relative;
-  background-color: #c16da0;
+  background-color: #dd2a7b;
   border-radius: 10px;
   max-width: 80%;
   height: fit-content;
@@ -85,12 +72,10 @@ button:hover {
   margin: 0.5em auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
 .card p:last-of-type {
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
-
-.card > i {
+.card i {
   font-size: 0.8em;
   position: absolute;
   margin: 0.3em;
@@ -99,7 +84,6 @@ button:hover {
   opacity: 0.3;
 }
 
-/* -- Form --*/
 form {
   position: fixed;
   display: none;
@@ -132,41 +116,17 @@ form input[type=checkbox] {
   margin: 20px 0;
   width: 20px;
 }
-
-/* Form close button */
-form > i {
+form i {
   position: relative;
   justify-self: end;
   margin-bottom: 0.5em;
   color: #909090;
 }
-
-form > i:hover {
+form i:hover {
   color: #dd2a7b;
 }
 
-/* -- Modal -- */
-.active {
-  display: block;
-}
-
-.inactive {
-  display: none;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1;
-}
-
-.deletedProductModal {
+.modal {
   background-color: #c7c5c5;
   border-radius: 5px;
   display: none;
@@ -182,9 +142,24 @@ form > i:hover {
   top: 15%;
 }
 
-/* ------- */
+.active {
+  display: block;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
 @media screen and (max-width: 1020px) {
-  .calendar-container {
+  .calendar {
     margin: auto;
     margin-top: 2em;
     grid-template-columns: 1fr;
@@ -195,12 +170,11 @@ form > i:hover {
   .card {
     width: 100%;
   }
-
-  .card > i {
+  .card i {
     left: 88%;
   }
 
-  .modal.deletedProduct {
+  .modal {
     width: 60%;
   }
 

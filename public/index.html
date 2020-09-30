@@ -10,38 +10,53 @@
 </head>
 
 <body>
-  <div class="modalOverlay"></div>
-  <div class="deletedProductModal">
+  <div class="modal__overlay"></div>
+  <div class="modal">
     <p>¿Estás seguro/a de eliminar este producto?</p>
-    <button type="button" class="delete">Eliminar</button>
-    <button type="button" class="cancel">Cancelar</button>
+    <button type="button" class="modal__delete-button">Eliminar producto</button>
+    <button type="button" class="modal__cancel-button">Cancelar</button>
   </div>
   <header>
     <img src="./logo_img.svg" alt="facial-cream-logo" />
     <h1>skintracker</h1>
   </header>
 
-  <button class="addProduct">+ Agregar producto</button>
+  <button class="header__add-button">+ Agregar producto</button>
+  <button class="header__reset-button"> Eliminar rutina </button>
 
-  <section class="calendar-container">
-    <div class="day"><p>Lunes</p></div>
-    <div class="day"><p>Martes</p> </div>
-    <div class="day"> <p>Miércoles</p> </div>
-    <div class="day"> <p>Jueves</p> </div>
-    <div class="day"> <p>Viernes</p> </div>
-    <div class="day"> <p>Sábado</p>  </div>
-    <div class="day"> <p>Domingo</p> </div>
-    <div class="monday"></div>
-    <div class="tuesday"></div>
-    <div class="wednesday"></div>
-    <div class="thursday"></div>
-    <div class="friday"></div>
-    <div class="saturday"></div>
-    <div class="sunday"></div>
+  <section class="calendar">
+    <div class="calendar__day-title">
+      <p>Lunes</p>
+    </div>
+    <div class="calendar__day-title">
+      <p>Martes</p>
+    </div>
+    <div class="calendar__day-title">
+      <p>Miércoles</p>
+    </div>
+    <div class="calendar__day-title">
+      <p>Jueves</p>
+    </div>
+    <div class="calendar__day-title">
+      <p>Viernes</p>
+    </div>
+    <div class="calendar__day-title">
+      <p>Sábado</p>
+    </div>
+    <div class="calendar__day-title">
+      <p>Domingo</p>
+    </div>
+    <div class="calendar__container monday"></div>
+    <div class="calendar__container tuesday"></div>
+    <div class="calendar__container wednesday"></div>
+    <div class="calendar__container thursday"></div>
+    <div class="calendar__container friday"></div>
+    <div class="calendar__container saturday"></div>
+    <div class="calendar__container sunday"></div>
   </section>
 
   <form>
-    <button type="button"><i class="fa fa-times-circle closeFormButton"></i></button>
+    <button type="button"><i class="fa fa-times-circle form__close-button"></i></button>
 
     <label for="product_name">Nombre del producto:</label>
     <input type="text" name="product_name" />
@@ -74,7 +89,7 @@
       <input name="days_usage" type="checkbox" value="sunday" />D
     </div>
 
-    <button type="submit" class="submitProductButton">Añadir</button>
+    <button type="submit" class="form__submit-button">Añadir</button>
   </form>
 
   <script type="module" src="scripts.js"></script>

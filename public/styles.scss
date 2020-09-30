@@ -50,67 +50,53 @@ button:hover {
   cursor: grabbing;
 }
 
-/* -- Calendar main grid --*/
-
-.calendar-container {
-  align-items: flex-start;
+.calendar {
   margin: 2em 0.5em;
   width: 98vw;
   gap: 0.5em;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-}
 
-.calendar-container>div {
-  background-color: $primary-color;
-  height: 3em;
-  border-radius: 15px;
-  grid-auto-rows: max-content;
-  gap: 0.5em;
-  grid-auto-columns: minmax(100px, 180px);
-}
+  div {
+    background-color: $primary-color;
+    border-radius: 15px;
+  }
 
-.day {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-}
+  .calendar__day-title {
+    height: 3em;
+  }
 
-// Card containers
-.calendar-container>div:nth-of-type(n + 8) {
-  min-height: 60vh;
-  height: fit-content;
-  align-items: start;
+  .calendar__container {
+    min-height: 55vh;
+    height: fit-content;
+    align-items: start;
+  }
 }
-
-/* --- Individual product cards --- */
 
 .card {
   word-wrap: break-word;
   position: relative;
-  background-color: rgb(193, 109, 160);
+  background-color: $accent-color;
   border-radius: 10px;
   max-width: 80%;
   height: fit-content;
   color: white;
   margin: 0.5em auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 
-.card p:last-of-type {
-  font-size: 0.6em;
-}
+  p:last-of-type {
+    font-size: 0.8em;
+  }
 
-.card>i {
-  font-size: 0.8em;
-  position: absolute;
-  margin: 0.3em;
-  right: 0.5em;
-  color: $primary-color;
-  opacity: 0.3;
+  i {
+    font-size: 0.8em;
+    position: absolute;
+    margin: 0.3em;
+    right: 0.5em;
+    color: $primary-color;
+    opacity: 0.3;
+  }
 }
-
-/* -- Form --*/
 
 form {
   position: fixed;
@@ -146,43 +132,21 @@ form {
     margin: 20px 0;
     width: 20px;
   }
+
+  i {
+    position: relative;
+    justify-self: end;
+    margin-bottom: 0.5em;
+    color: $modal-color;
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
+
 }
 
-/* Form close button */
-form>i {
-  position: relative;
-  justify-self: end;
-  margin-bottom: 0.5em;
-  color: $modal-color;
-}
-
-form>i:hover {
-  color: $accent-color;
-}
-
-/* -- Modal -- */
-
-.active {
-  display: block;
-}
-
-.inactive {
-  display: none;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1;
-}
-
-.deletedProductModal {
+.modal {
   background-color: rgb(199, 197, 197);
   border-radius: 5px;
   display: none;
@@ -198,10 +162,24 @@ form>i:hover {
   top: 15%;
 }
 
-/* ------- */
+.active {
+  display: block;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
 
 @media screen and (max-width: $breakpoint-tablet_max) {
-  .calendar-container {
+  .calendar {
     margin: auto;
     margin-top: 2em;
     grid-template-columns: 1fr;
@@ -211,13 +189,13 @@ form>i:hover {
 
   .card {
     width: 100%;
+
+    i {
+      left: 88%;
+    }
   }
 
-  .card>i {
-    left: 88%;
-  }
-
-  .modal.deletedProduct {
+  .modal {
     width: 60%;
   }
 

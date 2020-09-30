@@ -1,6 +1,4 @@
-import {
-  rest
-} from '../API/rest.js';
+import { rest } from '../API/rest.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('form');
@@ -16,33 +14,33 @@ const targetHasClass = (target, className) =>
   target.classList.contains(className);
 
 function showModal(e) {
-  if (targetHasClass(e.target, 'addProduct')) {
+  if (targetHasClass(e.target, 'header__add-button')) {
     form.classList.add('active');
-    document.querySelector('.modalOverlay').style.display = 'block';
-  } else if (targetHasClass(e.target, 'deleteCardButton')) {
-    document.querySelector('.deletedProductModal').style.display = 'block';
-    document.querySelector('.modalOverlay').style.display = 'block';
+    document.querySelector('.modal__overlay').style.display = 'block';
+  } else if (targetHasClass(e.target, 'product-card__delete-button')) {
+    document.querySelector('.modal').style.display = 'block';
+    document.querySelector('.modal__overlay').style.display = 'block';
   }
 }
 
 function hideModal(e) {
   if (
-    targetHasClass(e.target, 'closeFormButton') ||
-    targetHasClass(e.target, 'submitProductButton')
+    targetHasClass(e.target, 'form__close-button') ||
+    targetHasClass(e.target, 'form__submit-button')
   ) {
     form.classList.remove('active');
-    document.querySelector('.modalOverlay').style.display = 'none';
+    document.querySelector('.modal__overlay').style.display = 'none';
   } else if (
-    targetHasClass(e.target, 'cancel') ||
-    targetHasClass(e.target, 'delete')
+    targetHasClass(e.target, 'modal__cancel-button') ||
+    targetHasClass(e.target, 'modal__delete-button')
   ) {
-    document.querySelector('.deletedProductModal').style.display = 'none';
-    document.querySelector('.modalOverlay').style.display = 'none';
+    document.querySelector('.modal').style.display = 'none';
+    document.querySelector('.modal__overlay').style.display = 'none';
   }
 }
 
 function addNewProduct(e) {
-  if (targetHasClass(e.target, 'submitProductButton')) {
+  if (targetHasClass(e.target, 'form__submit-button')) {
     const newProduct = {
       name: e.target.form.product_name.value,
       type: e.target.form.product_type.value,
@@ -64,24 +62,17 @@ function addNewProduct(e) {
 }
 
 function printProductCards(res) {
-  const calendarContainers = document.querySelectorAll(
-    '.calendar__container'
-  );
+  const calendarContainers = document.querySelectorAll('.calendar__container');
 
   res.map((productFromDB) => {
     productFromDB.days.map((weekdayFromDB) => {
       calendarContainers.forEach((calendarDay, index) => {
-        if (weekdayFromDB === calendarDay.className) {
-          const {
-            name,
-            type,
-            date,
-            _id
-          } = productFromDB;
+        if (weekdayFromDB === calendarDay.classList[1]) {
+          const { name, type, date, _id } = productFromDB;
 
           let card = `<div class="card" id="${_id}"
           style="background-color: ${cardColors(weekdayFromDB)}">
-          <i class="fa fa-times-circle deleteCardButton"></i>
+          <i class="fa fa-times-circle product-card__delete-button"></i>
           <p>${name}</p>
           <p>${type}</p>
           <p>Expira ${formateDate(date)}</p>
@@ -132,16 +123,16 @@ function cardColors(day) {
 function deleteCards(e) {
   let productToDelete = '';
 
-  if (targetHasClass(e.target, 'deleteCardButton')) {
+  if (targetHasClass(e.target, 'product-card__delete-button')) {
     let id = e.target.parentNode.id;
     productToDelete = document.querySelectorAll(`[id="${id}"]`);
-  } else if (targetHasClass(e.target, 'reset')) {
+  } else if (targetHasClass(e.target, 'header__reset-button')) {
     productToDelete = document.querySelectorAll('.card');
   }
 
   if (productToDelete.length) {
     document
-      .querySelector('button.delete')
+      .querySelector('.modal__delete-button')
       .addEventListener('click', removeFromDOMAndDatabase(productToDelete));
   }
 }
