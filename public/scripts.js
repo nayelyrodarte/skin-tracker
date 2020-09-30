@@ -16,11 +16,10 @@ const targetHasClass = (target, className) =>
 function showModal(e) {
   if (targetHasClass(e.target, 'addProduct')) {
     form.classList.add('active');
-    document.querySelector('.modalOverlay').classList.add('overlay');
   } else if (targetHasClass(e.target, 'deleteCardButton')) {
-    document.querySelector('.deletedProductModal').style.display = 'block';
-    document.querySelector('.modalOverlay').classList.add('overlay');
+    document.querySelector('.deletedProductModal').add('inactive');
   }
+  document.querySelector('.modalOverlay').classList.add('overlay');
 }
 
 function hideModal(e) {
@@ -29,14 +28,13 @@ function hideModal(e) {
     targetHasClass(e.target, 'submitProductButton')
   ) {
     form.classList.remove('active');
-    document.querySelector('.modalOverlay').classList.remove('overlay');
   } else if (
     targetHasClass(e.target, 'cancel') ||
     targetHasClass(e.target, 'delete')
   ) {
-    document.querySelector('.deletedProductModal').style.display = 'none';
-    document.querySelector('.modalOverlay').classList.remove('overlay');
+    document.querySelector('.deletedProductModal').add('inactive');
   }
+  document.querySelector('.modalOverlay').classList.remove('overlay');
 }
 
 function addNewProduct(e) {
