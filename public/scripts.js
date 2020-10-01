@@ -2,11 +2,13 @@ import { rest } from '../API/rest.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('form');
+const modal = document.querySelector('.modal');
+const modalOverlay = document.querySelector('.modal__overlay');
 
 body.addEventListener('click', showModal);
 body.addEventListener('click', hideModal);
-body.addEventListener('click', addNewProduct);
-body.addEventListener('click', deleteCards);
+body.addEventListener('click', validateForm);
+body.addEventListener('click', deleteProduct);
 
 rest.get(printProductCards);
 
@@ -16,56 +18,23 @@ const targetHasClass = (target, className) =>
 function showModal(e) {
   if (targetHasClass(e.target, 'header__add-button')) {
     form.classList.add('active');
-    document.querySelector('.modal__overlay').style.display = 'block';
-  } else if (targetHasClass(e.target, 'product-card__delete-button')) {
-    document.querySelector('.modal').style.display = 'block';
-    document.querySelector('.modal__overlay').style.display = 'block';
+    modalOverlay.style.display = 'block';
+  } else if (
+    targetHasClass(e.target, 'product-card__delete-button') ||
+    targetHasClass(e.target, 'header__reset-button')
+  ) {
+    modal.style.display = 'block';
+    modalOverlay.style.display = 'block';
   }
 }
 
 function hideModal(e) {
   if (targetHasClass(e.target, 'form__close-button')) {
     form.classList.remove('active');
-    document.querySelector('.modal__overlay').style.display = 'none';
-  } else if (
-    targetHasClass(e.target, 'modal__cancel-button') ||
-    targetHasClass(e.target, 'modal__delete-button')
-  ) {
-    document.querySelector('.modal').style.display = 'none';
-    document.querySelector('.modal__overlay').style.display = 'none';
-  }
-}
-
-function addNewProduct(e) {
-  if (targetHasClass(e.target, 'form__submit-button')) {
-    if (
-      form.product_name.value === '' ||
-      form.product_type.value === '' ||
-      form.exp_date.value === ''
-    ) {
-      e.preventDefault();
-      form.classList.add('active');
-      document.querySelector('.alert').textContent =
-        'Completa todos los campos';
-    } else {
-      const newProduct = {
-        name: e.target.form.product_name.value,
-        type: e.target.form.product_type.value,
-        date: e.target.form.exp_date.value.toString(),
-        days: [],
-      };
-
-      const daysOfUseCheckboxes = document.querySelectorAll(
-        'input[type="checkbox"]'
-      );
-
-      for (let checkbox of daysOfUseCheckboxes) {
-        if (checkbox.checked) {
-          newProduct.days.push(checkbox.value);
-        }
-      }
-      rest.post(newProduct);
-    }
+    modalOverlay.style.display = 'none';
+  } else if (targetHasClass(e.target, 'modal__cancel-button')) {
+    modal.style.display = 'none';
+    modalOverlay.style.display = 'none';
   }
 }
 
@@ -128,7 +97,44 @@ function cardColors(day) {
   }
 }
 
-function deleteCards(e) {
+function validateForm(e) {
+  if (targetHasClass(e.target, 'form__submit-button')) {
+    if (
+      form.product_name.value === '' ||
+      form.product_type.value === '' ||
+      form.exp_date.value === ''
+    ) {
+      e.preventDefault();
+      form.classList.add('active');
+      document.querySelector('.alert').textContent =
+        'Completa todos los campos';
+    } else {
+      addNewProduct(e);
+    }
+  }
+}
+
+function addNewProduct(e) {
+  const newProduct = {
+    name: e.target.form.product_name.value,
+    type: e.target.form.product_type.value,
+    date: e.target.form.exp_date.value.toString(),
+    days: [],
+  };
+
+  const daysOfUseCheckboxes = document.querySelectorAll(
+    'input[type="checkbox"]'
+  );
+
+  for (let checkbox of daysOfUseCheckboxes) {
+    if (checkbox.checked) {
+      newProduct.days.push(checkbox.value);
+    }
+  }
+  rest.post(newProduct);
+}
+
+function deleteProduct(e) {
   let productToDelete = '';
 
   if (targetHasClass(e.target, 'product-card__delete-button')) {
@@ -138,11 +144,9 @@ function deleteCards(e) {
     productToDelete = document.querySelectorAll('.card');
   }
 
-  if (productToDelete.length) {
-    document
-      .querySelector('.modal__delete-button')
-      .addEventListener('click', removeFromDOMAndDatabase(productToDelete));
-  }
+  document
+    .querySelector('.modal__delete-button')
+    .addEventListener('click', removeFromDOMAndDatabase(productToDelete));
 }
 
 function removeFromDOMAndDatabase(querySelector) {
