@@ -12,8 +12,8 @@
 <body>
   <div class="modal__overlay"></div>
   <div class="modal">
-    <p>¿Estás seguro/a de eliminar este producto?</p>
-    <button type="button" class="modal__delete-button">Eliminar producto</button>
+    <p>¿Estás seguro/a?</p>
+    <button type="button" class="modal__delete-button">Eliminar productos</button>
     <button type="button" class="modal__cancel-button">Cancelar</button>
   </div>
   <header>
@@ -21,8 +21,10 @@
     <h1>skintracker</h1>
   </header>
 
-  <button class="header__add-button">+ Agregar producto</button>
-  <button class="header__reset-button"> Eliminar rutina </button>
+  <div class="header__buttons">
+    <button class="header__add-button">+ Agregar producto</button>
+    <button class="header__reset-button"> Eliminar rutina </button>
+  </div>
 
   <section class="calendar">
     <div class="calendar__day-title">
@@ -56,9 +58,8 @@
   </section>
 
   <form>
-    <i class="fa fa-times-circle form__close-button"></i>
+    <button class="form__close-button"><i class="fa fa-times-circle"></i></button>
     <div class="alert"></div>
-
 
     <label for="product_name">Nombre del producto:</label>
     <input type="text" name="product_name" />

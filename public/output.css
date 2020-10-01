@@ -18,8 +18,8 @@ header h1 {
   text-align: center;
   font-family: "Misses";
   font-size: 50px;
-  line-height: 0;
-  margin-bottom: 0.5em;
+  line-height: 0em;
+  margin-bottom: 1em;
 }
 
 header img {
@@ -54,6 +54,8 @@ button:hover {
 }
 .calendar .calendar__day-title {
   height: 3em;
+  display: grid;
+  align-content: center;
 }
 .calendar .calendar__container {
   min-height: 55vh;
@@ -113,6 +115,12 @@ form .form__close-button {
   top: 1%;
   position: absolute;
 }
+form .form__close-button:focus {
+  outline: 0;
+}
+form .form__close-button i {
+  pointer-events: none;
+}
 form input {
   border-radius: 10px;
   border: none;
@@ -142,7 +150,6 @@ form .alert {
 
 .modal {
   background-color: #c7c5c5;
-  border-radius: 5px;
   display: none;
   height: 20%;
   padding: 1em;
@@ -154,6 +161,8 @@ form .alert {
   margin-left: auto;
   margin-right: auto;
   top: 15%;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .active {
@@ -215,6 +224,14 @@ form .alert {
 
   .saturday {
     grid-row-start: 12;
+  }
+}
+@media screen and (max-width: 425px) {
+  .header__add-button,
+.header__reset-button {
+    display: block;
+    margin: auto;
+    margin-top: 0.5em;
   }
 }
 

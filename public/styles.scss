@@ -27,8 +27,8 @@ header h1 {
   text-align: center;
   font-family: $primary-font;
   font-size: 50px;
-  line-height: 0;
-  margin-bottom: 0.5em;
+  line-height: 0em;
+  margin-bottom: 1em;
 }
 
 header img {
@@ -64,6 +64,8 @@ button:hover {
 
   .calendar__day-title {
     height: 3em;
+    display: grid;
+    align-content: center;
   }
 
   .calendar__container {
@@ -128,9 +130,13 @@ form {
     top: 1%;
     position: absolute;
 
-    // &:focus {
-    //   outline: 0;
-    // }
+    &:focus {
+      outline: 0;
+    }
+
+    i {
+      pointer-events: none;
+    }
   }
 
   input {
@@ -167,7 +173,6 @@ form {
 
 .modal {
   background-color: rgb(199, 197, 197);
-  border-radius: 5px;
   display: none;
   height: 20%;
   padding: 1em;
@@ -179,6 +184,8 @@ form {
   margin-left: auto;
   margin-right: auto;
   top: 15%;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .active {
@@ -242,4 +249,15 @@ form {
   .saturday {
     grid-row-start: 12;
   }
+}
+
+@media screen and (max-width: 425px) {
+
+  .header__add-button,
+  .header__reset-button {
+    display: block;
+    margin: auto;
+    margin-top: 0.5em;
+  }
+
 }
