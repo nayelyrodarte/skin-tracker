@@ -134,8 +134,9 @@ function addNewProduct(e) {
   rest.post(newProduct);
 }
 
-function deleteProduct(e) {
+async function deleteProduct(e) {
   let productToDelete = '';
+  let modalDeleteBtn = document.querySelector('.modal__delete-button');
 
   if (targetHasClass(e.target, 'product-card__delete-button')) {
     let id = e.target.parentNode.id;
@@ -144,13 +145,17 @@ function deleteProduct(e) {
     productToDelete = document.querySelectorAll('.card');
   }
 
-  document
-    .querySelector('.modal__delete-button')
-    .addEventListener('click', removeFromDOMAndDatabase(productToDelete));
+  if (productToDelete.length) {
+    modalDeleteBtn.addEventListener('click', () => {
+      removeFromDOMAndDatabase(productToDelete);
+      modal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+  }
 }
 
-function removeFromDOMAndDatabase(querySelector) {
-  querySelector.forEach((item) => {
+function removeFromDOMAndDatabase(list) {
+  list.forEach((item) => {
     item.remove();
     rest.delete(item.id);
   });
