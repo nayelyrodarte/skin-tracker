@@ -35,7 +35,7 @@ button {
 }
 
 button:hover {
-  background-color: #dd2a7b;
+  background-color: #720026;
   color: white;
   border: none;
   cursor: grabbing;
@@ -66,7 +66,7 @@ button:hover {
 .card {
   word-wrap: break-word;
   position: relative;
-  background-color: #dd2a7b;
+  background-color: #720026;
   border-radius: 10px;
   max-width: 80%;
   height: fit-content;
@@ -139,10 +139,10 @@ form i {
   color: #909090;
 }
 form i:hover {
-  color: #dd2a7b;
+  color: #720026;
 }
-form .alert {
-  background-color: #dd2a7b;
+form i .alert {
+  background-color: #720026;
   border-radius: 15px;
   color: beige;
   margin: 0.5em;
@@ -151,8 +151,7 @@ form .alert {
 .modal {
   background-color: #c7c5c5;
   display: none;
-  height: 20%;
-  padding: 1em;
+  padding: 2em;
   position: fixed;
   width: 40%;
   z-index: 11;

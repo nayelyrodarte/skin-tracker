@@ -79,20 +79,20 @@ function cardColors(day) {
   switch (day) {
     case 'monday':
     case 'saturday':
-      return '#3F2D76';
+      return '#4F000B';
       break;
     case 'tuesday':
     case 'sunday':
-      return '#5E548E';
+      return '#720026';
       break;
     case 'wednesday':
-      return '#9F86C0';
+      return '#CE4257';
       break;
     case 'thursday':
-      return '#BE95C4';
+      return '#FF7F51';
       break;
     case 'friday':
-      return '#E0B1CB';
+      return '#FF9B54';
       break;
   }
 }
