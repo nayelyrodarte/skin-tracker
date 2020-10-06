@@ -2,24 +2,26 @@
 
 A skin care routine calendar I made as a final project for the Centraal Academy's (@ Mexico City) bootcamp.
 
-### Install
+### Setup
 
-1. Fork or clone this repository.
-2. Run `npm install` on your terminal.
-3. You'll need to have basic knowledge of MONGODB and a newly-created cluster for this project.
+1. Clone this repository.
+2. Run `npm install`
 
-### Server and MONGODB set-up
+#### Running on local server
 
-1. Add an .env file to the root folder with **_private variables_** containing your server's port number of preference and a MONGODB uri to your previously created cluster.
-   I called PORT and MONGODB to mine, as declaring them in uppercase is a convention for private variables.
+1. Checkout to "local-server" branch.
+2. Run `npm start`
+
+### Using MONGO-DB
+
+1. You'll need a MONGODB account and a newly-created cluster for this project.
+2. Add an .env file to the root folder with the **_private variables_** \* containing your server's port number of preferance and the MONGODB uri of your cluster.
+
+- Remember to declare them in uppercase, as convention indicates.
 
 Example:
 
 `PORT = 8000`
 `MONGODB = *Insert your MONGODB uri.*`
 
-2. Run `npm start` on your terminal.
-
-PORT = 8000 MONGODB = _Insert your MONGODB uri._
-
-Run npm start on your terminal.
+2. Run `npm start`.
