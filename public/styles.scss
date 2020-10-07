@@ -1,5 +1,5 @@
 $primary-color: #f5f4e8;
-$accent-color: #720026;
+$accent-color: #990637;
 $primary-font: 'Misses';
 $secondary-font: 'Simplicity';
 $modal-color: rgb(144, 144, 144);
@@ -161,13 +161,13 @@ form {
     &:hover {
       color: $accent-color;
     }
+  }
 
-    .alert {
-      background-color: $accent-color;
-      border-radius: 15px;
-      color: beige;
-      margin: 0.5em;
-    }
+  .alert {
+    background-color: $accent-color;
+    border-radius: 15px;
+    color: beige;
+    margin: 0.5em;
   }
 }
 
