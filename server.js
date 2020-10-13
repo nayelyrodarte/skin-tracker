@@ -11,7 +11,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(process.env.PORT, function () {
+const PORT = process.env.PORT || 3000;
+const host = '0.0.0.0' || 'localhost';
+
+app.listen(PORT, host, function () {
   console.log('Levantando servidor en');
   console.log(`http://localhost:${process.env.PORT}`);
 });
