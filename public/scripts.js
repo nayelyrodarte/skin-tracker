@@ -1,4 +1,4 @@
-import { rest } from '../API/rest.js';
+const rest = require('../API/rest.js');
 
 const body = document.querySelector('body');
 const form = document.querySelector('form');
