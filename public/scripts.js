@@ -1,4 +1,5 @@
 import { rest } from '../API/rest.js';
+import '../public/styles.scss';
 
 const body = document.querySelector('body');
 const form = document.querySelector('form');
