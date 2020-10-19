@@ -4,7 +4,7 @@ const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 
 app.use('/api/routine', require('./API/routes/routine'));
-app.use('/', express.static('public'));
+app.use('/', express.static('build'));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');

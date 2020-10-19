@@ -6,25 +6,29 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "sass": "sass --watch public/styles.scss public/output.css"
+    "sass": "sass --watch public/styles.scss public/output.css",
+    "webpack-server": "npx webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "css-loader": "^5.0.0",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "file-loader": "^6.1.1",
     "html-webpack-plugin": "^4.5.0",
     "mini-css-extract-plugin": "^1.0.0",
-    "mongoose": "^5.7.5",
+    "mongoose": "^5.10.9",
     "node-sass": "^4.14.1",
     "nodemon": "^1.19.1",
     "sass": "^1.27.0",
-    "sass-loader": "^10.0.3",
+    "sass-loader": "^7.1.0",
     "style-loader": "^2.0.0",
+    "svg-inline-loader": "^0.8.2",
     "webpack": "^5.1.0",
-    "webpack-cli": "^4.0.0"
+    "webpack-cli": "^4.0.0",
+    "webpack-dev-server": "^3.11.0"
   },
   "engines": {
     "node": "12.14.0"
