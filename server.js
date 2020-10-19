@@ -2,12 +2,23 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
+const cors = require('cors');
+
+// middleware
+app.use(cors());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 app.use('/api/routine', require('./API/routes/routine'));
-app.use('/', express.static('public'));
-app.use('/API', express.static('API'));
+app.use('/', express.static('build'));
 
-app.listen(process.env.PORT, function () {
+const PORT = process.env.PORT || 3000;
+const host = '0.0.0.0' || 'localhost';
+
+app.listen(PORT, host, function () {
   console.log('Levantando servidor en');
   console.log(`http://localhost:${process.env.PORT}`);
 });
