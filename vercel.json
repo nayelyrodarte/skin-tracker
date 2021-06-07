@@ -1,29 +1,3 @@
 {
-    "version": 2,
-    "env": {
-    },
-    "builds": [
-      {
-        "src": "./API/rest.js",
-        "use": "@vercel/node"
-      },
-      {
-        "src": "./build",
-        "use": "@vercel/static"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/routine",
-        "dest": "./API/routes/routine.js"
-      },
-      {
-        "src": "/",
-        "dest": "./build/"
-      },
-      {
-        "src": "/(.+)",
-        "dest": "./build/"
-      }
-    ]
+    "rewrites": [{ "source": "./API/rest.js", "destination": "/api/routine" }]
   }
