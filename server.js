@@ -22,6 +22,11 @@ app.listen(PORT, host, function () {
   console.log(`Levantando servidor en ${process.env.PORT}`);
 });
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => res.sendFile(path.resolve(__dirname, "build")));
+}
+
 mongoose
   .connect(process.env.MONGODB, {
     useNewUrlParser: true,
