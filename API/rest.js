@@ -6,37 +6,38 @@ export const rest = {
         console.log(res);
         callback(res);
         return res;
-      });
+      })
+      .catch((error) => console.error("Error:", error));
   },
   post: function (product) {
     const config = {
-      method: 'post',
+      method: "post",
       body: JSON.stringify(product),
       headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
     };
 
     fetch(`http://localhost:8000/api/routine/`, config)
       .then((response) => {
-        console.log('Success:', response);
+        console.log("Success:", response);
         return response.json();
       })
-      .catch((error) => console.error('Error:', error));
+      .catch((error) => console.error("Error:", error));
   },
   delete: function (id) {
     const config = {
-      method: 'delete',
+      method: "delete",
       headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
     };
 
     fetch(`http://localhost:8000/api/routine/${id}`, config)
       .then((response) => {
-        console.log('Success:', response);
+        console.log("Success:", response);
         return response.json();
       })
-      .catch((error) => console.error('Error:', error));
+      .catch((error) => console.error("Error:", error));
   },
 };
