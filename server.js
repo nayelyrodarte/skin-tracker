@@ -18,8 +18,8 @@ app.use("/", express.static("build"));
 const PORT = process.env.PORT || 3000;
 const host = "0.0.0.0" || "localhost";
 
-app.listen(PORT, host, function () {
-  console.log(`Levantando servidor en ${process.env.PORT}`);
+app.listen(PORT, host, function (err) {
+  console.log(`Levantando servidor en ${process.env.PORT}`, app.url());
 });
 
 if (process.env.NODE_ENV === "production") {
