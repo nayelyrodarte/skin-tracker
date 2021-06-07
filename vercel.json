@@ -1,15 +1,29 @@
 {
     "version": 2,
+    "env": {
+    },
     "builds": [
-        {
-            "src": "build",
-            "use": "@vercel/node"
-        }
+      {
+        "src": "./API/rest.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "./build",
+        "use": "@vercel/static"
+      }
     ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/"
-        }
+      {
+        "src": "/api/routine",
+        "dest": "./API/routes/routine.js"
+      },
+      {
+        "src": "/",
+        "dest": "./build/"
+      },
+      {
+        "src": "/(.+)",
+        "dest": "./build/"
+      }
     ]
-}
+  }
