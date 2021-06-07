@@ -1,6 +1,6 @@
 export const rest = {
   get: function (callback) {
-    fetch(`http://localhost:8000/api/routine`)
+    fetch(`/api/routine`)
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
@@ -18,7 +18,7 @@ export const rest = {
       },
     };
 
-    fetch(`http://localhost:8000/api/routine/`, config)
+    fetch(`/api/routine/`, config)
       .then((response) => {
         console.log("Success:", response);
         return response.json();
@@ -33,7 +33,7 @@ export const rest = {
       },
     };
 
-    fetch(`http://localhost:8000/api/routine/${id}`, config)
+    fetch(`/api/routine/${id}`, config)
       .then((response) => {
         console.log("Success:", response);
         return response.json();
