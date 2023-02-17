@@ -7,11 +7,6 @@ A skin care routine calendar I made as a final project for the Centraal Academy'
 1. Clone this repository.
 2. Run `npm install`
 
-#### Running on local server
-
-1. Checkout to "local-server" branch.
-2. Run `npm start`
-
 ### Using MONGO-DB
 
 1. You'll need a MONGODB account and a newly-created cluster for this project.
