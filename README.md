@@ -5,18 +5,15 @@ A skin care routine calendar I made as a final project for the Centraal Academy'
 ### Setup
 
 1. Clone this repository.
-2. Run `npm install`
+2. Run `yarn install`
+3. Add an .env file to the root folder with the **_private variables_** \* containing your server's port number of preferance and the MONGODB uri of your cluster.
 
-### Using MONGO-DB
+`PORT = *Your port number goes here. Ex. 3000`
+`MONGODB = *Your MONGODB uri goes here.*`
+# For dev environment
 
-1. You'll need a MONGODB account and a newly-created cluster for this project.
-2. Add an .env file to the root folder with the **_private variables_** \* containing your server's port number of preferance and the MONGODB uri of your cluster.
+4. Run `npm dev` to get the server started with Nodemon.
+5. Run `npm webpack` to run the client. 
+6. If changes on styling are needed, run `npm sass` and start editing on the styles.scss file.
 
-- Remember to declare them in uppercase, as convention indicates.
 
-Example:
-
-`PORT = 8000`
-`MONGODB = *Insert your MONGODB uri.*`
-
-2. Run `npm start`.
