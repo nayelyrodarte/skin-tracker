@@ -234,30 +234,6 @@ form {
   .modal {
     width: 60%;
   }
-
-  .monday {
-    grid-row-start: 2;
-  }
-
-  .tuesday {
-    grid-row-start: 4;
-  }
-
-  .wednesday {
-    grid-row-start: 6;
-  }
-
-  .thursday {
-    grid-row-start: 8;
-  }
-
-  .friday {
-    grid-row-start: 10;
-  }
-
-  .saturday {
-    grid-row-start: 12;
-  }
 }
 
 @media screen and (max-width: 425px) {
