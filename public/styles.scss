@@ -2,7 +2,7 @@ $primary-color: #EBB3C1;
 $accent-color: #C71C5F;
 $primary-font: 'Misses';
 $secondary-font: 'Quicksand';
-$modal-color: rgb(144, 144, 144);
+$modal-color: white;
 $breakpoint-tablet_max: 1020px;
 $main-background: #FFFFFC;
 
@@ -117,7 +117,7 @@ form {
   margin-left: auto;
   margin-right: auto;
   top: 10%;
-  background-color: rgb(199, 197, 197);
+  background-color: $modal-color;
   color: black;
   width: 15em;
   padding: 1em;
@@ -149,15 +149,17 @@ form {
 
   input {
     border-radius: 10px;
-    border: none;
+    border: solid 1.5px black;
     width: 90%;
     justify-self: center;
     margin: 10px;
+    padding: 0.15em;
   }
 
   input[type='checkbox'] {
     margin: 20px 0;
     width: 20px;
+    height: 20px;
   }
 
   i {
@@ -180,7 +182,7 @@ form {
 }
 
 .modal {
-  background-color: rgb(199, 197, 197);
+  background-color: $modal-color;
   display: none;
   padding: 2em;
   position: fixed;
