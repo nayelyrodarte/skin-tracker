@@ -6,6 +6,10 @@
   font-size: 20px;
 }
 
+body {
+  background-color: #FFFFFC;
+}
+
 @font-face {
   font-family: "Simplicity";
   src: url(./fonts/simplicity.ttf);
@@ -32,10 +36,11 @@ button {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
+  background-color: #EBB3C1;
 }
 
 button:hover {
-  background-color: #990637;
+  background-color: #C71C5F;
   color: white;
   border: none;
   cursor: grabbing;
@@ -49,24 +54,14 @@ button:hover {
   grid-template-columns: repeat(7, 1fr);
 }
 .calendar div {
-  background-color: #f5f4e8;
-  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+  border-radius: 20px;
 }
-.calendar .calendar__day-title {
-  height: 3em;
-  display: grid;
-  align-content: center;
-}
-.calendar .calendar__container {
-  min-height: 55vh;
-  height: fit-content;
-  align-items: start;
-}
-
-.card {
+.calendar div .card {
   word-wrap: break-word;
   position: relative;
-  background-color: #990637;
+  background-color: #C71C5F;
   border-radius: 10px;
   max-width: 80%;
   height: fit-content;
@@ -74,16 +69,24 @@ button:hover {
   margin: 0.5em auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.card p:last-of-type {
+.calendar div .card p:last-of-type {
   font-size: 0.8em;
 }
-.card i {
+.calendar div .card i {
   font-size: 0.8em;
   position: absolute;
   margin: 0.3em;
   right: 0.5em;
-  color: #f5f4e8;
+  color: #EBB3C1;
   opacity: 0.3;
+}
+.calendar .calendar__container {
+  min-height: 55vh;
+  height: fit-content;
+  align-items: start;
+}
+.calendar .calendar__container h6 {
+  margin-top: 0.5em;
 }
 
 form {
@@ -95,7 +98,7 @@ form {
   margin-left: auto;
   margin-right: auto;
   top: 10%;
-  background-color: #c7c5c5;
+  background-color: rgb(199, 197, 197);
   color: black;
   width: 15em;
   padding: 1em;
@@ -136,20 +139,20 @@ form i {
   position: relative;
   justify-self: end;
   margin-bottom: 0.5em;
-  color: #909090;
+  color: rgb(144, 144, 144);
 }
 form i:hover {
-  color: #990637;
+  color: #C71C5F;
 }
 form .alert {
-  background-color: #990637;
+  background-color: #C71C5F;
   border-radius: 15px;
   color: beige;
   margin: 0.5em;
 }
 
 .modal {
-  background-color: #c7c5c5;
+  background-color: rgb(199, 197, 197);
   display: none;
   padding: 2em;
   position: fixed;
@@ -189,45 +192,37 @@ form .alert {
     width: 70vw;
     height: auto;
   }
-
   .card {
     width: 100%;
   }
   .card i {
     left: 88%;
   }
-
   .modal {
     width: 60%;
   }
-
   .monday {
     grid-row-start: 2;
   }
-
   .tuesday {
     grid-row-start: 4;
   }
-
   .wednesday {
     grid-row-start: 6;
   }
-
   .thursday {
     grid-row-start: 8;
   }
-
   .friday {
     grid-row-start: 10;
   }
-
   .saturday {
     grid-row-start: 12;
   }
 }
 @media screen and (max-width: 425px) {
   .header__add-button,
-.header__reset-button {
+  .header__reset-button {
     display: block;
     margin: auto;
     margin-top: 0.5em;
