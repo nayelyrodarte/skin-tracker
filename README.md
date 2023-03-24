@@ -17,6 +17,5 @@ A skin care routine calendar I made as a final project for the Centraal Academy'
 ### For dev environment
 
 1. Follow the regular setup steps from 1 to 3. 
-2. Run `npm dev` to get the server started with Nodemon.
-3. Run `npm webpack` to run the client. 
+2. Run `npm dev` to get the server and the client started with Nodemon and Webpack, respectively.
 4. If changes on styling are needed, run `npm sass` and start editing on the `styles.scss` file.
