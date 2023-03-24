@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "sass": "sass --watch public/styles.scss public/output.css",
-    "webpack": "npx webpack serve"
+    "webpack": "webpack"
   },
   "author": "",
   "license": "ISC",

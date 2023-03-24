@@ -7,6 +7,7 @@ module.exports = {
     path: __dirname + '/build',
     filename: 'bundle.js',
   },
+  watch: true,
   plugins: [
     new htmlWebpackPlugin({
       template: './public/index.html',
