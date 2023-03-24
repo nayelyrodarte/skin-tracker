@@ -48,8 +48,7 @@ function printProductCards(res) {
         if (weekdayFromDB === calendarDay.classList[1]) {
           const { name, type, date, _id } = productFromDB;
 
-          let card = `<div class="card" id="${_id}"
-          style="background-color: ${cardColors(weekdayFromDB)}">
+          let card = `<div class="card" id="${_id}">
           <i class="fa fa-times-circle product-card__delete-button"></i>
           <p>${name}</p>
           <p>${type}</p>
@@ -73,28 +72,6 @@ function formateDate(date) {
     const year = match[1];
 
     return `${day}/${month}/${year}`;
-  }
-}
-
-function cardColors(day) {
-  switch (day) {
-    case 'monday':
-    case 'saturday':
-      return '#4F000B';
-      break;
-    case 'tuesday':
-    case 'sunday':
-      return '#720026';
-      break;
-    case 'wednesday':
-      return '#CE4257';
-      break;
-    case 'thursday':
-      return '#FF7F51';
-      break;
-    case 'friday':
-      return '#FF9B54';
-      break;
   }
 }
 
