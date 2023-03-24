@@ -1,7 +1,7 @@
 $primary-color: #EBB3C1;
 $accent-color: #C71C5F;
 $primary-font: 'Misses';
-$secondary-font: 'Simplicity';
+$secondary-font: 'Quicksand';
 $modal-color: rgb(144, 144, 144);
 $breakpoint-tablet_max: 1020px;
 $main-background: #FFFFFC;
@@ -19,17 +19,11 @@ body {
 }
 
 @font-face {
-  font-family: 'Simplicity';
-  src: url(./fonts/simplicity.ttf);
-}
-
-@font-face {
   font-family: 'Misses';
   src: url(./fonts/Misses.otf);
 }
 
 header {
-
   display: grid;
   grid-auto-flow: column;
   width: fit-content;
