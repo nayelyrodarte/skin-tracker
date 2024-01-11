@@ -3,9 +3,19 @@ const miniCSSExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './public/scripts.js',
+  mode: 'none',
   output: {
     path: __dirname + '/build',
     filename: 'bundle.js',
+  },
+  devServer: {
+    static: './build',
+    proxy: {
+      '*': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+    },
   },
   plugins: [
     new htmlWebpackPlugin({
@@ -18,8 +28,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(woff(2)?|ttf|otf|svg)(\?v=\d+\.\d+\.\d+)?$/,

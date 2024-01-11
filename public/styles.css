@@ -1,14 +1,7 @@
-$primary-color: #f5f4e8;
-$accent-color: #990637;
-$primary-font: 'Misses';
-$secondary-font: 'Simplicity';
-$modal-color: rgb(144, 144, 144);
-$breakpoint-tablet_max: 1020px;
-
 * {
   margin: 0px;
   padding: 0px;
-  font-family: $secondary-font;
+  font-family: 'Simplicity';
   text-align: center;
   font-size: 20px;
 }
@@ -17,15 +10,13 @@ $breakpoint-tablet_max: 1020px;
   font-family: 'Simplicity';
   src: url(./fonts/simplicity.ttf);
 }
-
 @font-face {
   font-family: 'Misses';
   src: url(./fonts/Misses.otf);
 }
-
 header h1 {
   text-align: center;
-  font-family: $primary-font;
+  font-family: 'Misses';
   font-size: 50px;
   line-height: 0em;
   margin-bottom: 1em;
@@ -44,7 +35,7 @@ button {
 }
 
 button:hover {
-  background-color: $accent-color;
+  background-color: #990637;
   color: white;
   border: none;
   cursor: grabbing;
@@ -56,48 +47,43 @@ button:hover {
   gap: 0.5em;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-
-  div {
-    background-color: $primary-color;
-    border-radius: 15px;
-  }
-
-  .calendar__day-title {
-    height: 3em;
-    display: grid;
-    align-content: center;
-  }
-
-  .calendar__container {
-    min-height: 55vh;
-    height: fit-content;
-    align-items: start;
-  }
+}
+.calendar div {
+  background-color: #f5f4e8;
+  border-radius: 15px;
+}
+.calendar .calendar__day-title {
+  height: 3em;
+  display: grid;
+  align-content: center;
+}
+.calendar .calendar__container {
+  min-height: 55vh;
+  height: fit-content;
+  align-items: start;
 }
 
 .card {
   word-wrap: break-word;
   position: relative;
-  background-color: $accent-color;
+  background-color: #990637;
   border-radius: 10px;
   max-width: 80%;
   height: fit-content;
   color: white;
   margin: 0.5em auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-  p:last-of-type {
-    font-size: 0.8em;
-  }
-
-  i {
-    font-size: 0.8em;
-    position: absolute;
-    margin: 0.3em;
-    right: 0.5em;
-    color: $primary-color;
-    opacity: 0.3;
-  }
+}
+.card p:last-of-type {
+  font-size: 0.8em;
+}
+.card i {
+  font-size: 0.8em;
+  position: absolute;
+  margin: 0.3em;
+  right: 0.5em;
+  color: #f5f4e8;
+  opacity: 0.3;
 }
 
 form {
@@ -109,70 +95,61 @@ form {
   margin-left: auto;
   margin-right: auto;
   top: 10%;
-  background-color: rgb(199, 197, 197);
+  background-color: #c7c5c5;
   color: black;
   width: 15em;
   padding: 1em;
   border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-  button {
-    width: fit-content;
-    justify-self: center;
-    margin: 0.5em;
-  }
-
-  .form__close-button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    right: 5%;
-    top: 1%;
-    position: absolute;
-
-    &:focus {
-      outline: 0;
-    }
-
-    i {
-      pointer-events: none;
-    }
-  }
-
-  input {
-    border-radius: 10px;
-    border: none;
-    width: 90%;
-    justify-self: center;
-    margin: 10px;
-  }
-
-  input[type='checkbox'] {
-    margin: 20px 0;
-    width: 20px;
-  }
-
-  i {
-    position: relative;
-    justify-self: end;
-    margin-bottom: 0.5em;
-    color: $modal-color;
-
-    &:hover {
-      color: $accent-color;
-    }
-  }
-
-  .alert {
-    background-color: $accent-color;
-    border-radius: 15px;
-    color: beige;
-    margin: 0.5em;
-  }
+}
+form button {
+  width: fit-content;
+  justify-self: center;
+  margin: 0.5em;
+}
+form .form__close-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  right: 5%;
+  top: 1%;
+  position: absolute;
+}
+form .form__close-button:focus {
+  outline: 0;
+}
+form .form__close-button i {
+  pointer-events: none;
+}
+form input {
+  border-radius: 10px;
+  border: none;
+  width: 90%;
+  justify-self: center;
+  margin: 10px;
+}
+form input[type='checkbox'] {
+  margin: 20px 0;
+  width: 20px;
+}
+form i {
+  position: relative;
+  justify-self: end;
+  margin-bottom: 0.5em;
+  color: #909090;
+}
+form i:hover {
+  color: #990637;
+}
+form .alert {
+  background-color: #990637;
+  border-radius: 15px;
+  color: beige;
+  margin: 0.5em;
 }
 
 .modal {
-  background-color: rgb(199, 197, 197);
+  background-color: #c7c5c5;
   display: none;
   padding: 2em;
   position: fixed;
@@ -204,7 +181,7 @@ form {
   z-index: 1;
 }
 
-@media screen and (max-width: $breakpoint-tablet_max) {
+@media screen and (max-width: 1020px) {
   .calendar {
     margin: auto;
     margin-top: 2em;
@@ -215,10 +192,9 @@ form {
 
   .card {
     width: 100%;
-
-    i {
-      left: 88%;
-    }
+  }
+  .card i {
+    left: 88%;
   }
 
   .modal {
@@ -249,14 +225,13 @@ form {
     grid-row-start: 12;
   }
 }
-
 @media screen and (max-width: 425px) {
-
   .header__add-button,
   .header__reset-button {
     display: block;
     margin: auto;
     margin-top: 0.5em;
   }
-
 }
+
+/*# sourceMappingURL=output.css.map */
