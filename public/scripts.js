@@ -5,13 +5,20 @@ const body = document.querySelector('body');
 const form = document.querySelector('form');
 const modal = document.querySelector('.modal');
 const modalOverlay = document.querySelector('.modal__overlay');
+const productModal = document.querySelector('.product-modal');
 
 body.addEventListener('click', showModal);
 body.addEventListener('click', hideModal);
 body.addEventListener('click', validateForm);
 body.addEventListener('click', deleteProduct);
+body.addEventListener('click', productDetails);
 
-rest.get(printProductCards);
+const data = await rest.get();
+
+if (data) {
+  printProductCards(data);
+  console.log(data);
+}
 
 const targetHasClass = (target, className) =>
   target.classList.contains(className);
@@ -39,6 +46,26 @@ function hideModal(e) {
   }
 }
 
+function productDetails(e) {
+  const id = e.target.id;
+
+  const product = data.find(({ _id }) => _id === id);
+
+  if (product) {
+    modalOverlay.style.display = 'block';
+    productModal.classList.add('active');
+
+    productModal.innerHTML = `
+    <section id=${id}>
+    <p>${product.name}</p>
+    <p>${product.type}</p>
+    <p>${product.days}</p>
+    <button class="product-card__delete-button">Remove product</button>
+    </section>
+  `;
+  }
+}
+
 function printProductCards(res) {
   const calendarContainers = document.querySelectorAll('.calendar__container');
 
@@ -48,13 +75,11 @@ function printProductCards(res) {
         if (weekdayFromDB === calendarDay.classList[1]) {
           const { name, type, date, _id } = productFromDB;
 
-          let card = `<div class="card" id="${_id}"
+          let card = `<button class="card" id="${_id}"
           style="background-color: ${cardColors(weekdayFromDB)}">
-          <i class="fa fa-times-circle product-card__delete-button"></i>
-          <p>${name}</p>
-          <p>${type}</p>
-          <p>Expira ${formateDate(date)}</p>
-          </div>`;
+          <p class="name">${name}</p>
+          <p class="type">${type}</p>
+          </button>`;
 
           calendarContainers[index].innerHTML += card;
         }
@@ -151,6 +176,7 @@ async function deleteProduct(e) {
       removeFromDOMAndDatabase(productToDelete);
       modal.style.display = 'none';
       modalOverlay.style.display = 'none';
+      productModal.classList.remove('active');
     });
   }
 }

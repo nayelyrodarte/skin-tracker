@@ -73,6 +73,14 @@ button:hover {
   color: white;
   margin: 0.5em auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  p {
+    pointer-events: none;
+  }
+
+  .date {
+    display: none;
+  }
 }
 .card p:last-of-type {
   font-size: 0.8em;
@@ -234,4 +242,15 @@ form .alert {
   }
 }
 
-/*# sourceMappingURL=output.css.map */
+.product-modal {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  background-color: pink;
+  width: 300px;
+  height: 500px;
+
+  &.active {
+    display: block;
+  }
+}
