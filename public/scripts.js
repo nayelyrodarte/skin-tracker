@@ -34,7 +34,7 @@ function showModal(e) {
     <section>
       <p>¿Estás seguro/a?</p>
       <button type="button" class="modal__delete-button">
-        Eliminar productos
+        Eliminar producto
       </button>
       <button type="button" class="modal__cancel-button">Cancelar</button>
     </section>
@@ -59,6 +59,7 @@ function productDetails(e) {
 
   if (product) {
     modalOverlay.style.display = 'block';
+    modal.style.display = 'block';
     modal.classList.add('active');
 
     modal.innerHTML = `
@@ -67,6 +68,7 @@ function productDetails(e) {
     <p>${product.type}</p>
     <p>${product.days}</p>
     <button class="product-card__delete-button">Remove product</button>
+    <button class="modal__cancel-button">Cancel</button>
     </section>
   `;
   }
