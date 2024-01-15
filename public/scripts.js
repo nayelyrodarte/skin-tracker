@@ -16,7 +16,6 @@ const data = await rest.get();
 
 if (data) {
   printProductCards(data);
-  console.log(data);
 }
 
 const targetHasClass = (target, className) =>
@@ -25,10 +24,10 @@ const targetHasClass = (target, className) =>
 function showModal(e) {
   if (targetHasClass(e.target, 'header__add-button')) {
     form.classList.add('active');
-    modalOverlay.style.display = 'block';
+    modalOverlay.classList.add('active');
   } else if (targetHasClass(e.target, 'product-card__delete-button')) {
-    modal.style.display = 'block';
-    modalOverlay.style.display = 'block';
+    modal.classList.add('active');
+    modalOverlay.classList.add('active');
 
     modal.innerHTML = `
     <section>
@@ -45,10 +44,10 @@ function showModal(e) {
 function hideModal(e) {
   if (targetHasClass(e.target, 'form__close-button')) {
     form.classList.remove('active');
-    modalOverlay.style.display = 'none';
+    modalOverlay.classList.remove('active');
   } else if (targetHasClass(e.target, 'modal__cancel-button')) {
-    modal.style.display = 'none';
-    modalOverlay.style.display = 'none';
+    modal.classList.remove('active');
+    modalOverlay.classList.remove('active');
   }
 }
 
@@ -58,8 +57,7 @@ function productDetails(e) {
   const product = data.find(({ _id }) => _id === id);
 
   if (product) {
-    modalOverlay.style.display = 'block';
-    modal.style.display = 'block';
+    modalOverlay.classList.add('active');
     modal.classList.add('active');
 
     modal.innerHTML = `
@@ -146,9 +144,8 @@ async function deleteProduct(e) {
   if (productToDelete.length) {
     modalDeleteBtn.addEventListener('click', () => {
       removeFromDOMAndDatabase(productToDelete);
-      modal.style.display = 'none';
-      modalOverlay.style.display = 'none';
       modal.classList.remove('active');
+      modalOverlay.classList.remove('active');
     });
   }
 }
