@@ -5,71 +5,23 @@ const body = document.querySelector('body');
 const form = document.querySelector('form');
 const modal = document.querySelector('.modal');
 const modalOverlay = document.querySelector('.modal__overlay');
+const calendar = document.querySelector('.calendar');
+const addBtn = document.querySelector('.header__add-button');
 
 body.addEventListener('click', showModal);
 body.addEventListener('click', hideModal);
-body.addEventListener('click', validateForm);
-body.addEventListener('click', deleteProduct);
-body.addEventListener('click', productDetails);
+form.addEventListener('click', validateForm);
+modal.addEventListener('click', deleteProduct);
+calendar.addEventListener('click', productDetails);
+addBtn.addEventListener('click', handleForm);
+
+const targetHasClass = (target, className) =>
+  target.classList.contains(className);
 
 const data = await rest.get();
 
 if (data) {
   printProductCards(data);
-}
-
-const targetHasClass = (target, className) =>
-  target.classList.contains(className);
-
-function showModal(e) {
-  if (targetHasClass(e.target, 'header__add-button')) {
-    form.classList.add('active');
-    modalOverlay.classList.add('active');
-  } else if (targetHasClass(e.target, 'product-card__delete-button')) {
-    modal.classList.add('active');
-    modalOverlay.classList.add('active');
-
-    modal.innerHTML = `
-    <section>
-      <p>¿Estás seguro/a?</p>
-      <button type="button" class="modal__delete-button">
-        Eliminar producto
-      </button>
-      <button type="button" class="modal__cancel-button">Cancelar</button>
-    </section>
-    `;
-  }
-}
-
-function hideModal(e) {
-  if (targetHasClass(e.target, 'form__close-button')) {
-    form.classList.remove('active');
-    modalOverlay.classList.remove('active');
-  } else if (targetHasClass(e.target, 'modal__cancel-button')) {
-    modal.classList.remove('active');
-    modalOverlay.classList.remove('active');
-  }
-}
-
-function productDetails(e) {
-  const id = e.target.id;
-
-  const product = data.find(({ _id }) => _id === id);
-
-  if (product) {
-    modalOverlay.classList.add('active');
-    modal.classList.add('active');
-
-    modal.innerHTML = `
-    <section id=${id}>
-    <p>${product.name}</p>
-    <p>${product.type}</p>
-    <p>${product.days}</p>
-    <button class="product-card__delete-button">Remove product</button>
-    <button class="modal__cancel-button">Cancel</button>
-    </section>
-  `;
-  }
 }
 
 function printProductCards(res) {
@@ -82,9 +34,9 @@ function printProductCards(res) {
           const { name, type, date, _id } = productFromDB;
 
           let card = `<button class="card" id="${_id}">
-          <p>${name}</p>
-          <p>${type}</p>
-          </button>`;
+         <p>${name}</p>
+         <p>${type}</p>
+         </button>`;
 
           calendarContainers[index].innerHTML += card;
         }
@@ -93,15 +45,66 @@ function printProductCards(res) {
   });
 }
 
+function handleForm(e) {
+  form.classList.add('active');
+  modalOverlay.classList.add('active');
+
+  if (targetHasClass(e.target, 'form__close-button')) {
+    form.classList.remove('active');
+    modalOverlay.classList.remove('active');
+  }
+}
+
+function showModal(e) {
+  if (targetHasClass(e.target, 'product-card__delete-button')) {
+    modal.classList.add('active');
+
+    modal.innerHTML = `
+      <p>¿Estás seguro/a?</p>
+      <button type="button" class="modal__delete-button">
+        Eliminar producto
+      </button>
+      <button type="button" class="modal__cancel-button">Cancelar</button>
+    `;
+  }
+}
+
+function hideModal(e) {
+  if (targetHasClass(e.target, 'modal__cancel-button')) {
+    modal.classList.remove('active');
+    modalOverlay.classList.remove('active');
+  }
+}
+
+function productDetails(e) {
+  const id = e.target.id;
+  localStorage.setItem('pId', id);
+
+  const product = data.find(({ _id }) => _id === id);
+
+  if (product) {
+    modalOverlay.classList.add('active');
+    modal.classList.add('active');
+
+    modal.innerHTML = `
+    <p>${product.name}</p>
+    <p>${product.type}</p>
+    <p>${product.days}</p>
+    <button class="product-card__delete-button">Remove product</button>
+    <button class="modal__cancel-button">Cancel</button>
+  `;
+  }
+}
+
 function validateForm(e) {
   if (targetHasClass(e.target, 'form__submit-button')) {
+    const { product_name, product_type, exp_date } = form;
     if (
-      form.product_name.value === '' ||
-      form.product_type.value === '' ||
-      form.exp_date.value === ''
+      product_name.value === '' ||
+      product_type.value === '' ||
+      exp_date.value === ''
     ) {
       e.preventDefault();
-      form.classList.add('active');
       document.querySelector('.alert').textContent =
         'Completa todos los campos';
     } else {
@@ -131,22 +134,16 @@ function addNewProduct(e) {
 }
 
 async function deleteProduct(e) {
-  let productToDelete = '';
-  let modalDeleteBtn = document.querySelector('.modal__delete-button');
+  let id = localStorage.getItem('pId');
 
-  if (targetHasClass(e.target, 'product-card__delete-button')) {
-    let id = e.target.parentNode.id;
-    productToDelete = document.querySelectorAll(`[id="${id}"]`);
-  } else if (targetHasClass(e.target, 'header__reset-button')) {
-    productToDelete = document.querySelectorAll('.card');
-  }
+  if (targetHasClass(e.target, 'modal__delete-button') && id) {
+    let productToDelete = document.querySelectorAll(`[id="${id}"]`);
 
-  if (productToDelete.length) {
-    modalDeleteBtn.addEventListener('click', () => {
+    if (productToDelete.length) {
       removeFromDOMAndDatabase(productToDelete);
       modal.classList.remove('active');
       modalOverlay.classList.remove('active');
-    });
+    }
   }
 }
 
@@ -155,4 +152,5 @@ function removeFromDOMAndDatabase(list) {
     item.remove();
     rest.delete(item.id);
   });
+  localStorage.removeItem('pId');
 }
