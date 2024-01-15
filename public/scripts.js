@@ -5,7 +5,6 @@ const body = document.querySelector('body');
 const form = document.querySelector('form');
 const modal = document.querySelector('.modal');
 const modalOverlay = document.querySelector('.modal__overlay');
-const productModal = document.querySelector('.product-modal');
 
 body.addEventListener('click', showModal);
 body.addEventListener('click', hideModal);
@@ -27,12 +26,19 @@ function showModal(e) {
   if (targetHasClass(e.target, 'header__add-button')) {
     form.classList.add('active');
     modalOverlay.style.display = 'block';
-  } else if (
-    targetHasClass(e.target, 'product-card__delete-button') ||
-    targetHasClass(e.target, 'header__reset-button')
-  ) {
+  } else if (targetHasClass(e.target, 'product-card__delete-button')) {
     modal.style.display = 'block';
     modalOverlay.style.display = 'block';
+
+    modal.innerHTML = `
+    <section>
+      <p>¿Estás seguro/a?</p>
+      <button type="button" class="modal__delete-button">
+        Eliminar productos
+      </button>
+      <button type="button" class="modal__cancel-button">Cancelar</button>
+    </section>
+    `;
   }
 }
 
@@ -53,9 +59,9 @@ function productDetails(e) {
 
   if (product) {
     modalOverlay.style.display = 'block';
-    productModal.classList.add('active');
+    modal.classList.add('active');
 
-    productModal.innerHTML = `
+    modal.innerHTML = `
     <section id=${id}>
     <p>${product.name}</p>
     <p>${product.type}</p>
@@ -77,8 +83,8 @@ function printProductCards(res) {
 
           let card = `<button class="card" id="${_id}"
           style="background-color: ${cardColors(weekdayFromDB)}">
-          <p class="name">${name}</p>
-          <p class="type">${type}</p>
+          <p>${name}</p>
+          <p>${type}</p>
           </button>`;
 
           calendarContainers[index].innerHTML += card;
@@ -176,7 +182,7 @@ async function deleteProduct(e) {
       removeFromDOMAndDatabase(productToDelete);
       modal.style.display = 'none';
       modalOverlay.style.display = 'none';
-      productModal.classList.remove('active');
+      modal.classList.remove('active');
     });
   }
 }
