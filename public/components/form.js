@@ -1,8 +1,9 @@
-import { modalOverlay, modal } from '../scripts';
 import { rest } from '../../API/rest';
 import { targetHasClass } from '../utils/styling';
 
 const form = document.querySelector('form');
+const modal = document.querySelector('.modal');
+const modalOverlay = document.querySelector('.modal__overlay');
 
 export function handleForm(e) {
   form.classList.add('active');
