@@ -2,8 +2,7 @@ import { rest } from '../../API/rest';
 import { targetHasClass } from '../utils/styling';
 
 const form = document.querySelector('form');
-const modal = document.querySelector('.modal');
-const modalOverlay = document.querySelector('.modal__overlay');
+const modalOverlay = document.querySelector('.overlay');
 
 export function handleForm(e) {
   form.classList.add('active');
@@ -50,26 +49,4 @@ export function addNewProduct(e) {
     }
   }
   rest.post(newProduct);
-}
-
-export async function deleteProduct(e) {
-  let id = localStorage.getItem('pId');
-
-  if (targetHasClass(e.target, 'modal__delete-button') && id) {
-    let productToDelete = document.querySelectorAll(`[id="${id}"]`);
-
-    if (productToDelete.length) {
-      removeFromDOMAndDatabase(productToDelete);
-      modal.classList.remove('active');
-      modalOverlay.classList.remove('active');
-    }
-  }
-}
-
-function removeFromDOMAndDatabase(list) {
-  list.forEach((item) => {
-    item.remove();
-    rest.delete(item.id);
-  });
-  localStorage.removeItem('pId');
 }

@@ -1,6 +1,6 @@
 import { rest } from '../API/rest.js';
-import { handleForm, deleteProduct, validateForm } from './components/form.js';
-import { showModal, hideModal } from './components/modals.js';
+import { handleForm, validateForm } from './components/form.js';
+import { showModal, hideModal, deleteProduct } from './components/modals.js';
 import '../public/styles.css';
 
 const body = document.querySelector('body');
@@ -8,8 +8,8 @@ const form = document.querySelector('form');
 const calendar = document.querySelector('.calendar');
 const addBtn = document.querySelector('.header__add-button');
 
-const modal = document.querySelector('.modal');
-const modalOverlay = document.querySelector('.modal__overlay');
+const modal = document.querySelector('.modal-confirmation');
+const modalOverlay = document.querySelector('.overlay');
 
 body.addEventListener('click', showModal);
 body.addEventListener('click', hideModal);
