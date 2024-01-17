@@ -1,40 +1,70 @@
 * {
   margin: 0px;
   padding: 0px;
-  font-family: 'Simplicity';
-  text-align: center;
-  font-size: 20px;
+  font-size: 16px;
 }
 
-@font-face {
-  font-family: 'Simplicity';
-  src: url(./fonts/simplicity.ttf);
-}
 @font-face {
   font-family: 'Misses';
   src: url(./fonts/Misses.otf);
 }
-header h1 {
-  text-align: center;
-  font-family: 'Misses';
-  font-size: 50px;
-  line-height: 0em;
-  margin-bottom: 1em;
+
+body {
+  background: rgba(252, 248, 249, 0.64);
+  font-family: 'Quicksand';
 }
 
-header img {
-  margin-top: 1rem;
-  width: 3rem;
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 3rem;
+
+  background-color: #af3364;
+  color: white;
+  box-shadow: 0px 2px 10px 0px rgba(57, 50, 64, 0.3);
+
+  padding: 12px 16px;
+
+  header {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      text-align: center;
+      font-family: 'Misses';
+      font-size: 32px;
+      font-weight: normal;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  button {
+    padding: 12px;
+    border: 1px solid white;
+    color: white;
+    background: transparent;
+    border-radius: 5px;
+  }
 }
 
 button {
-  margin-top: 1em;
-  padding: 10px 15px;
+  font-family: 'Quicksand';
+  padding: 20px 15px;
   border: none;
   border-radius: 5px;
 }
 
-button:hover {
+& button:hover {
   background-color: #990637;
   color: white;
   border: none;
@@ -49,8 +79,10 @@ button:hover {
   grid-template-columns: repeat(7, 1fr);
 }
 .calendar div {
-  background-color: #f5f4e8;
-  border-radius: 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(111, 45, 189, 0.09);
+
+  background: #fffefe;
 }
 .calendar .calendar__day-title {
   height: 3em;

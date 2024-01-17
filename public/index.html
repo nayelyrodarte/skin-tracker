@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,42 +16,44 @@
     <div class="overlay"></div>
     <div class="modal modal-product"></div>
     <div class="modal modal-confirmation"></div>
-    <header>
-      <img src="./logo_img.svg" alt="facial-cream-logo" />
-      <h1>skintracker</h1>
-    </header>
 
-    <button class="header__add-button">+ Agregar producto</button>
+    <section class="top-bar">
+      <header>
+        <img src="./logo_img.svg" alt="facial-cream-logo" />
+        <h1>skintracker</h1>
+      </header>
+      <button class="header__add-button">+ Agregar producto</button>
+    </section>
 
     <section class="calendar">
       <div class="calendar__day-title">
         <p>Lunes</p>
+        <div class="calendar__container monday"></div>
       </div>
       <div class="calendar__day-title">
         <p>Martes</p>
+        <div class="calendar__container tuesday"></div>
       </div>
       <div class="calendar__day-title">
         <p>Miércoles</p>
+        <div class="calendar__container wednesday"></div>
       </div>
       <div class="calendar__day-title">
         <p>Jueves</p>
+        <div class="calendar__container thursday"></div>
       </div>
       <div class="calendar__day-title">
         <p>Viernes</p>
+        <div class="calendar__container friday"></div>
       </div>
       <div class="calendar__day-title">
         <p>Sábado</p>
+        <div class="calendar__container saturday"></div>
       </div>
       <div class="calendar__day-title">
         <p>Domingo</p>
+        <div class="calendar__container sunday"></div>
       </div>
-      <div class="calendar__container monday"></div>
-      <div class="calendar__container tuesday"></div>
-      <div class="calendar__container wednesday"></div>
-      <div class="calendar__container thursday"></div>
-      <div class="calendar__container friday"></div>
-      <div class="calendar__container saturday"></div>
-      <div class="calendar__container sunday"></div>
     </section>
 
     <form>
