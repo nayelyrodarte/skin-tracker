@@ -1,7 +1,93 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ([
-/* 0 */,
+/* 0 */
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _API_rest_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _components_form_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _public_styles_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+
+
+
+
+
+const body = document.querySelector('body');
+
+//modals
+const modal = document.querySelector('.modal-confirmation');
+const modalOverlay = document.querySelector('.overlay');
+
+body.addEventListener('click', _components_modals_js__WEBPACK_IMPORTED_MODULE_2__.showConfirmationModal);
+body.addEventListener('click', _components_modals_js__WEBPACK_IMPORTED_MODULE_2__.hideAllModals);
+modal.addEventListener('click', _components_modals_js__WEBPACK_IMPORTED_MODULE_2__.deleteProduct);
+
+// form
+const form = document.querySelector('form');
+form.addEventListener('click', _components_form_js__WEBPACK_IMPORTED_MODULE_1__.validateForm);
+
+// calendar grid
+const calendar = document.querySelector('.calendar');
+const addBtn = document.querySelector('.header__add-button');
+
+calendar.addEventListener('click', displayProductDetails);
+addBtn.addEventListener('click', _components_form_js__WEBPACK_IMPORTED_MODULE_1__.handleForm);
+
+const data = await _API_rest_js__WEBPACK_IMPORTED_MODULE_0__.rest.get();
+
+if (data) {
+  renderProductCards(data);
+}
+
+function renderProductCards(data) {
+  const calendarContainers = document.querySelectorAll('.calendar__container');
+
+  data.map((productFromDB) => {
+    productFromDB.days.map((weekdayFromDB) => {
+      calendarContainers.forEach((calendarDay, index) => {
+        if (weekdayFromDB === calendarDay.classList[1]) {
+          const { name, type, _id } = productFromDB;
+
+          let card = `
+         <button class="card" id="${_id}">
+          <p>${name}</p>
+          <p>${type}</p>
+         </button>`;
+
+          calendarContainers[index].innerHTML += card;
+        }
+      });
+    });
+  });
+}
+
+function displayProductDetails(e) {
+  const id = e.target.id;
+  localStorage.setItem('pId', id);
+
+  const product = data.find(({ _id }) => _id === id);
+
+  if (product) {
+    modalOverlay.classList.add('active');
+    modal.classList.add('active');
+
+    modal.innerHTML = `
+   <p>${product.name}</p>
+   <p>${product.type}</p>
+   <p>${product.days}</p>
+   <button class="product-card__delete-button">Remove product</button>
+   <button class="modal__cancel-button">Cancel</button>
+ `;
+  }
+}
+
+__webpack_async_result__();
+} catch(e) { __webpack_async_result__(e); } }, 1);
+
+/***/ }),
 /* 1 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -10,46 +96,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   rest: () => (/* binding */ rest)
 /* harmony export */ });
 const rest = {
-  get: function (callback) {
-    fetch(`/api/routine`)
+  get: async function () {
+    return fetch(`/api/routine`)
       .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        callback(res);
-        return res;
-      })
-      .catch((error) => console.error("Error:", error));
+      .then((res) => res)
+      .catch((error) => console.error('Error:', error));
   },
   post: function (product) {
     const config = {
-      method: "post",
+      method: 'post',
       body: JSON.stringify(product),
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
     };
 
     fetch(`/api/routine/`, config)
       .then((response) => {
-        console.log("Success:", response);
+        console.log('Success:', response);
         return response.json();
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => console.error('Error:', error));
   },
   delete: function (id) {
     const config = {
-      method: "delete",
+      method: 'delete',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
     };
 
     fetch(`/api/routine/${id}`, config)
       .then((response) => {
-        console.log("Success:", response);
+        console.log('Success:', response);
         return response.json();
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => console.error('Error:', error));
   },
 };
 
@@ -60,11 +142,152 @@ const rest = {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addNewProduct: () => (/* binding */ addNewProduct),
+/* harmony export */   handleForm: () => (/* binding */ handleForm),
+/* harmony export */   validateForm: () => (/* binding */ validateForm)
+/* harmony export */ });
+/* harmony import */ var _API_rest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _utils_styling__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+
+
+
+const form = document.querySelector('form');
+const modalOverlay = document.querySelector('.overlay');
+
+function handleForm(e) {
+  form.classList.add('active');
+  modalOverlay.classList.add('active');
+
+  if ((0,_utils_styling__WEBPACK_IMPORTED_MODULE_1__.targetHasClass)(e.target, 'form__close-button')) {
+    form.classList.remove('active');
+    modalOverlay.classList.remove('active');
+  }
+}
+
+function validateForm(e) {
+  if ((0,_utils_styling__WEBPACK_IMPORTED_MODULE_1__.targetHasClass)(e.target, 'form__submit-button')) {
+    const { product_name, product_type, exp_date } = form;
+    if (
+      product_name.value === '' ||
+      product_type.value === '' ||
+      exp_date.value === ''
+    ) {
+      e.preventDefault();
+      document.querySelector('.alert').textContent =
+        'Completa todos los campos';
+    } else {
+      addNewProduct(e);
+    }
+  }
+}
+
+function addNewProduct(e) {
+  const newProduct = {
+    name: e.target.form.product_name.value,
+    type: e.target.form.product_type.value,
+    date: e.target.form.exp_date.value.toString(),
+    days: [],
+  };
+
+  const daysOfUseCheckboxes = document.querySelectorAll(
+    'input[type="checkbox"]'
+  );
+
+  for (let checkbox of daysOfUseCheckboxes) {
+    if (checkbox.checked) {
+      newProduct.days.push(checkbox.value);
+    }
+  }
+  _API_rest__WEBPACK_IMPORTED_MODULE_0__.rest.post(newProduct);
+}
+
+
+/***/ }),
+/* 3 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   targetHasClass: () => (/* binding */ targetHasClass)
+/* harmony export */ });
+const targetHasClass = (target, className) =>
+  target.classList.contains(className);
+
+
+/***/ }),
+/* 4 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   deleteProduct: () => (/* binding */ deleteProduct),
+/* harmony export */   hideAllModals: () => (/* binding */ hideAllModals),
+/* harmony export */   showConfirmationModal: () => (/* binding */ showConfirmationModal)
+/* harmony export */ });
+/* harmony import */ var _utils_styling__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _API_rest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+
+
+
+const modalConfirmation = document.querySelector('.modal-confirmation');
+const modalProduct = document.querySelector('.modal-product');
+const modalOverlay = document.querySelector('.overlay');
+
+function showConfirmationModal(e) {
+  if ((0,_utils_styling__WEBPACK_IMPORTED_MODULE_0__.targetHasClass)(e.target, 'product-card__delete-button')) {
+    modalProduct.classList.remove('active');
+    modalConfirmation.classList.add('active');
+
+    modalConfirmation.innerHTML = `
+     <p>¿Estás seguro/a?</p>
+     <button type="button" class="modal__delete-button">
+       Eliminar producto
+     </button>
+     <button type="button" class="modal__cancel-button">Cancelar</button>
+   `;
+  }
+}
+
+function hideAllModals(e) {
+  if ((0,_utils_styling__WEBPACK_IMPORTED_MODULE_0__.targetHasClass)(e.target, 'modal__cancel-button')) {
+    modalConfirmation.remove('active');
+    modalProduct.classList.remove('active');
+    modalOverlay.classList.remove('active');
+  }
+}
+
+async function deleteProduct(e) {
+  let id = localStorage.getItem('pId');
+
+  if ((0,_utils_styling__WEBPACK_IMPORTED_MODULE_0__.targetHasClass)(e.target, 'modal__delete-button') && id) {
+    let productToDelete = document.querySelectorAll(`[id="${id}"]`);
+
+    if (productToDelete.length) {
+      productToDelete.forEach((item) => {
+        item.remove();
+        _API_rest__WEBPACK_IMPORTED_MODULE_1__.rest.delete(item.id);
+      });
+
+      localStorage.removeItem('pId');
+
+      modalConfirmation.classList.remove('active');
+      modalOverlay.classList.remove('active');
+    }
+  }
+}
+
+
+/***/ }),
+/* 5 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
 
             
 
@@ -80,7 +303,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
-/* 3 */
+/* 6 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 
@@ -354,19 +577,19 @@ module.exports = function (list, options) {
 };
 
 /***/ }),
-/* 4 */
+/* 7 */
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _fonts_simplicity_ttf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
-/* harmony import */ var _fonts_Misses_otf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* harmony import */ var _fonts_simplicity_ttf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
+/* harmony import */ var _fonts_Misses_otf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 // Imports
 
 
@@ -376,13 +599,13 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_simplicity_ttf__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_Misses_otf__WEBPACK_IMPORTED_MODULE_3__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0px;\n  padding: 0px;\n  font-family: 'Simplicity';\n  text-align: center;\n  font-size: 20px;\n}\n\n@font-face {\n  font-family: 'Simplicity';\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n@font-face {\n  font-family: 'Misses';\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n}\nheader h1 {\n  text-align: center;\n  font-family: 'Misses';\n  font-size: 50px;\n  line-height: 0em;\n  margin-bottom: 1em;\n}\n\nheader img {\n  margin-top: 1rem;\n  width: 3rem;\n}\n\nbutton {\n  margin-top: 1em;\n  padding: 10px 15px;\n  border: none;\n  border-radius: 5px;\n}\n\nbutton:hover {\n  background-color: #990637;\n  color: white;\n  border: none;\n  cursor: grabbing;\n}\n\n.calendar {\n  margin: 2em 0.5em;\n  width: 98vw;\n  gap: 0.5em;\n  display: grid;\n  grid-template-columns: repeat(7, 1fr);\n}\n.calendar div {\n  background-color: #f5f4e8;\n  border-radius: 15px;\n}\n.calendar .calendar__day-title {\n  height: 3em;\n  display: grid;\n  align-content: center;\n}\n.calendar .calendar__container {\n  min-height: 55vh;\n  height: fit-content;\n  align-items: start;\n}\n\n.card {\n  word-wrap: break-word;\n  position: relative;\n  background-color: #990637;\n  border-radius: 10px;\n  max-width: 80%;\n  height: fit-content;\n  color: white;\n  margin: 0.5em auto;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n}\n.card p:last-of-type {\n  font-size: 0.8em;\n}\n.card i {\n  font-size: 0.8em;\n  position: absolute;\n  margin: 0.3em;\n  right: 0.5em;\n  color: #f5f4e8;\n  opacity: 0.3;\n}\n\nform {\n  position: fixed;\n  display: none;\n  z-index: 11;\n  left: 0;\n  right: 0;\n  margin-left: auto;\n  margin-right: auto;\n  top: 10%;\n  background-color: #c7c5c5;\n  color: black;\n  width: 15em;\n  padding: 1em;\n  border-radius: 20px;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n}\nform button {\n  width: fit-content;\n  justify-self: center;\n  margin: 0.5em;\n}\nform .form__close-button {\n  background-color: transparent;\n  border: none;\n  padding: 0;\n  right: 5%;\n  top: 1%;\n  position: absolute;\n}\nform .form__close-button:focus {\n  outline: 0;\n}\nform .form__close-button i {\n  pointer-events: none;\n}\nform input {\n  border-radius: 10px;\n  border: none;\n  width: 90%;\n  justify-self: center;\n  margin: 10px;\n}\nform input[type='checkbox'] {\n  margin: 20px 0;\n  width: 20px;\n}\nform i {\n  position: relative;\n  justify-self: end;\n  margin-bottom: 0.5em;\n  color: #909090;\n}\nform i:hover {\n  color: #990637;\n}\nform .alert {\n  background-color: #990637;\n  border-radius: 15px;\n  color: beige;\n  margin: 0.5em;\n}\n\n.modal {\n  background-color: #c7c5c5;\n  display: none;\n  padding: 2em;\n  position: fixed;\n  width: 40%;\n  z-index: 11;\n  left: 0;\n  right: 0;\n  margin-left: auto;\n  margin-right: auto;\n  top: 15%;\n  border-radius: 20px;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n}\n\n.active {\n  display: block;\n}\n\n.modal__overlay {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 100vh;\n  width: 100vw;\n  background-color: rgba(0, 0, 0, 0.4);\n  z-index: 1;\n}\n\n@media screen and (max-width: 1020px) {\n  .calendar {\n    margin: auto;\n    margin-top: 2em;\n    grid-template-columns: 1fr;\n    width: 70vw;\n    height: auto;\n  }\n\n  .card {\n    width: 100%;\n  }\n  .card i {\n    left: 88%;\n  }\n\n  .modal {\n    width: 60%;\n  }\n\n  .monday {\n    grid-row-start: 2;\n  }\n\n  .tuesday {\n    grid-row-start: 4;\n  }\n\n  .wednesday {\n    grid-row-start: 6;\n  }\n\n  .thursday {\n    grid-row-start: 8;\n  }\n\n  .friday {\n    grid-row-start: 10;\n  }\n\n  .saturday {\n    grid-row-start: 12;\n  }\n}\n@media screen and (max-width: 425px) {\n  .header__add-button,\n  .header__reset-button {\n    display: block;\n    margin: auto;\n    margin-top: 0.5em;\n  }\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0px;\n  padding: 0px;\n  font-family: 'Simplicity';\n  text-align: center;\n  font-size: 20px;\n}\n\n@font-face {\n  font-family: 'Simplicity';\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n@font-face {\n  font-family: 'Misses';\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n}\nheader h1 {\n  text-align: center;\n  font-family: 'Misses';\n  font-size: 50px;\n  line-height: 0em;\n  margin-bottom: 1em;\n}\n\nheader img {\n  margin-top: 1rem;\n  width: 3rem;\n}\n\nbutton {\n  margin-top: 1em;\n  padding: 10px 15px;\n  border: none;\n  border-radius: 5px;\n}\n\nbutton:hover {\n  background-color: #990637;\n  color: white;\n  border: none;\n  cursor: grabbing;\n}\n\n.calendar {\n  margin: 2em 0.5em;\n  width: 98vw;\n  gap: 0.5em;\n  display: grid;\n  grid-template-columns: repeat(7, 1fr);\n}\n.calendar div {\n  background-color: #f5f4e8;\n  border-radius: 15px;\n}\n.calendar .calendar__day-title {\n  height: 3em;\n  display: grid;\n  align-content: center;\n}\n.calendar .calendar__container {\n  min-height: 55vh;\n  height: fit-content;\n  align-items: start;\n}\n\n.card {\n  word-wrap: break-word;\n  position: relative;\n  background-color: #990637;\n  border-radius: 10px;\n  max-width: 80%;\n  height: fit-content;\n  color: white;\n  margin: 0.5em auto;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n\n  p {\n    pointer-events: none;\n  }\n\n  .date {\n    display: none;\n  }\n}\n.card p:last-of-type {\n  font-size: 0.8em;\n}\n.card i {\n  font-size: 0.8em;\n  position: absolute;\n  margin: 0.3em;\n  right: 0.5em;\n  color: #f5f4e8;\n  opacity: 0.3;\n}\n\nform {\n  position: fixed;\n  display: none;\n  z-index: 11;\n  left: 0;\n  right: 0;\n  margin-left: auto;\n  margin-right: auto;\n  top: 10%;\n  background-color: #c7c5c5;\n  color: black;\n  width: 15em;\n  padding: 1em;\n  border-radius: 20px;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n\n  &.active {\n    display: block;\n  }\n}\nform button {\n  width: fit-content;\n  justify-self: center;\n  margin: 0.5em;\n}\nform .form__close-button {\n  background-color: transparent;\n  border: none;\n  padding: 0;\n  right: 5%;\n  top: 1%;\n  position: absolute;\n}\nform .form__close-button:focus {\n  outline: 0;\n}\nform .form__close-button i {\n  pointer-events: none;\n}\nform input {\n  border-radius: 10px;\n  border: none;\n  width: 90%;\n  justify-self: center;\n  margin: 10px;\n}\nform input[type='checkbox'] {\n  margin: 20px 0;\n  width: 20px;\n}\nform i {\n  position: relative;\n  justify-self: end;\n  margin-bottom: 0.5em;\n  color: #909090;\n}\nform i:hover {\n  color: #990637;\n}\nform .alert {\n  background-color: #990637;\n  border-radius: 15px;\n  color: beige;\n  margin: 0.5em;\n}\n\n.modal {\n  background-color: #c7c5c5;\n  display: none;\n  padding: 2em;\n  position: fixed;\n  width: 40%;\n  z-index: 11;\n  left: 0;\n  right: 0;\n  margin-left: auto;\n  margin-right: auto;\n  top: 15%;\n  border-radius: 20px;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n\n  &.active {\n    display: block;\n  }\n}\n\n.overlay {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 100vh;\n  width: 100vw;\n  background-color: rgba(0, 0, 0, 0.4);\n  z-index: 1;\n\n  &.active {\n    display: block;\n  }\n}\n\n@media screen and (max-width: 1020px) {\n  .calendar {\n    margin: auto;\n    margin-top: 2em;\n    grid-template-columns: 1fr;\n    width: 70vw;\n    height: auto;\n  }\n\n  .card {\n    width: 100%;\n  }\n  .card i {\n    left: 88%;\n  }\n\n  .modal {\n    width: 60%;\n  }\n\n  .monday {\n    grid-row-start: 2;\n  }\n\n  .tuesday {\n    grid-row-start: 4;\n  }\n\n  .wednesday {\n    grid-row-start: 6;\n  }\n\n  .thursday {\n    grid-row-start: 8;\n  }\n\n  .friday {\n    grid-row-start: 10;\n  }\n\n  .saturday {\n    grid-row-start: 12;\n  }\n}\n@media screen and (max-width: 425px) {\n  .header__add-button,\n  .header__reset-button {\n    display: block;\n    margin: auto;\n    margin-top: 0.5em;\n  }\n}\n\n.product-modal {\n  display: none;\n  position: absolute;\n  z-index: 2;\n  background-color: pink;\n  width: 300px;\n  height: 500px;\n\n  &.active {\n    display: block;\n  }\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ ((module) => {
 
 
@@ -453,7 +676,7 @@ module.exports = function (cssWithMappingToString) {
 };
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ ((module) => {
 
 
@@ -492,7 +715,7 @@ module.exports = function (url, options) {
 };
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -502,7 +725,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "fonts/simplicity.ttf");
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -539,6 +762,75 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/async module */
+/******/ 	(() => {
+/******/ 		var webpackQueues = typeof Symbol === "function" ? Symbol("webpack queues") : "__webpack_queues__";
+/******/ 		var webpackExports = typeof Symbol === "function" ? Symbol("webpack exports") : "__webpack_exports__";
+/******/ 		var webpackError = typeof Symbol === "function" ? Symbol("webpack error") : "__webpack_error__";
+/******/ 		var resolveQueue = (queue) => {
+/******/ 			if(queue && queue.d < 1) {
+/******/ 				queue.d = 1;
+/******/ 				queue.forEach((fn) => (fn.r--));
+/******/ 				queue.forEach((fn) => (fn.r-- ? fn.r++ : fn()));
+/******/ 			}
+/******/ 		}
+/******/ 		var wrapDeps = (deps) => (deps.map((dep) => {
+/******/ 			if(dep !== null && typeof dep === "object") {
+/******/ 				if(dep[webpackQueues]) return dep;
+/******/ 				if(dep.then) {
+/******/ 					var queue = [];
+/******/ 					queue.d = 0;
+/******/ 					dep.then((r) => {
+/******/ 						obj[webpackExports] = r;
+/******/ 						resolveQueue(queue);
+/******/ 					}, (e) => {
+/******/ 						obj[webpackError] = e;
+/******/ 						resolveQueue(queue);
+/******/ 					});
+/******/ 					var obj = {};
+/******/ 					obj[webpackQueues] = (fn) => (fn(queue));
+/******/ 					return obj;
+/******/ 				}
+/******/ 			}
+/******/ 			var ret = {};
+/******/ 			ret[webpackQueues] = x => {};
+/******/ 			ret[webpackExports] = dep;
+/******/ 			return ret;
+/******/ 		}));
+/******/ 		__webpack_require__.a = (module, body, hasAwait) => {
+/******/ 			var queue;
+/******/ 			hasAwait && ((queue = []).d = -1);
+/******/ 			var depQueues = new Set();
+/******/ 			var exports = module.exports;
+/******/ 			var currentDeps;
+/******/ 			var outerResolve;
+/******/ 			var reject;
+/******/ 			var promise = new Promise((resolve, rej) => {
+/******/ 				reject = rej;
+/******/ 				outerResolve = resolve;
+/******/ 			});
+/******/ 			promise[webpackExports] = exports;
+/******/ 			promise[webpackQueues] = (fn) => (queue && fn(queue), depQueues.forEach(fn), promise["catch"](x => {}));
+/******/ 			module.exports = promise;
+/******/ 			body((deps) => {
+/******/ 				currentDeps = wrapDeps(deps);
+/******/ 				var fn;
+/******/ 				var getResult = () => (currentDeps.map((d) => {
+/******/ 					if(d[webpackError]) throw d[webpackError];
+/******/ 					return d[webpackExports];
+/******/ 				}))
+/******/ 				var promise = new Promise((resolve) => {
+/******/ 					fn = () => (resolve(getResult));
+/******/ 					fn.r = 0;
+/******/ 					var fnQueue = (q) => (q !== queue && !depQueues.has(q) && (depQueues.add(q), q && !q.d && (fn.r++, q.push(fn))));
+/******/ 					currentDeps.map((dep) => (dep[webpackQueues](fnQueue)));
+/******/ 				});
+/******/ 				return fn.r ? promise : getResult();
+/******/ 			}, (err) => ((err ? reject(promise[webpackError] = err) : outerResolve(exports)), resolveQueue(queue)));
+/******/ 			queue && queue.d < 0 && (queue.d = 0);
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
@@ -620,177 +912,11 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _API_rest_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _public_styles_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-
-
-
-const body = document.querySelector('body');
-const form = document.querySelector('form');
-const modal = document.querySelector('.modal');
-const modalOverlay = document.querySelector('.modal__overlay');
-
-body.addEventListener('click', showModal);
-body.addEventListener('click', hideModal);
-body.addEventListener('click', validateForm);
-body.addEventListener('click', deleteProduct);
-
-_API_rest_js__WEBPACK_IMPORTED_MODULE_0__.rest.get(printProductCards);
-
-const targetHasClass = (target, className) =>
-  target.classList.contains(className);
-
-function showModal(e) {
-  if (targetHasClass(e.target, 'header__add-button')) {
-    form.classList.add('active');
-    modalOverlay.style.display = 'block';
-  } else if (
-    targetHasClass(e.target, 'product-card__delete-button') ||
-    targetHasClass(e.target, 'header__reset-button')
-  ) {
-    modal.style.display = 'block';
-    modalOverlay.style.display = 'block';
-  }
-}
-
-function hideModal(e) {
-  if (targetHasClass(e.target, 'form__close-button')) {
-    form.classList.remove('active');
-    modalOverlay.style.display = 'none';
-  } else if (targetHasClass(e.target, 'modal__cancel-button')) {
-    modal.style.display = 'none';
-    modalOverlay.style.display = 'none';
-  }
-}
-
-function printProductCards(res) {
-  const calendarContainers = document.querySelectorAll('.calendar__container');
-
-  res.map((productFromDB) => {
-    productFromDB.days.map((weekdayFromDB) => {
-      calendarContainers.forEach((calendarDay, index) => {
-        if (weekdayFromDB === calendarDay.classList[1]) {
-          const { name, type, date, _id } = productFromDB;
-
-          let card = `<div class="card" id="${_id}"
-          style="background-color: ${cardColors(weekdayFromDB)}">
-          <i class="fa fa-times-circle product-card__delete-button"></i>
-          <p>${name}</p>
-          <p>${type}</p>
-          <p>Expira ${formateDate(date)}</p>
-          </div>`;
-
-          calendarContainers[index].innerHTML += card;
-        }
-      });
-    });
-  });
-}
-
-function formateDate(date) {
-  if (date !== null) {
-    let regex = /(\d{1,4})-(\d{1,2})-(\d{1,2})/;
-    let match = date.match(regex);
-
-    const day = match[3];
-    const month = match[2];
-    const year = match[1];
-
-    return `${day}/${month}/${year}`;
-  }
-}
-
-function cardColors(day) {
-  switch (day) {
-    case 'monday':
-    case 'saturday':
-      return '#4F000B';
-      break;
-    case 'tuesday':
-    case 'sunday':
-      return '#720026';
-      break;
-    case 'wednesday':
-      return '#CE4257';
-      break;
-    case 'thursday':
-      return '#FF7F51';
-      break;
-    case 'friday':
-      return '#FF9B54';
-      break;
-  }
-}
-
-function validateForm(e) {
-  if (targetHasClass(e.target, 'form__submit-button')) {
-    if (
-      form.product_name.value === '' ||
-      form.product_type.value === '' ||
-      form.exp_date.value === ''
-    ) {
-      e.preventDefault();
-      form.classList.add('active');
-      document.querySelector('.alert').textContent =
-        'Completa todos los campos';
-    } else {
-      addNewProduct(e);
-    }
-  }
-}
-
-function addNewProduct(e) {
-  const newProduct = {
-    name: e.target.form.product_name.value,
-    type: e.target.form.product_type.value,
-    date: e.target.form.exp_date.value.toString(),
-    days: [],
-  };
-
-  const daysOfUseCheckboxes = document.querySelectorAll(
-    'input[type="checkbox"]'
-  );
-
-  for (let checkbox of daysOfUseCheckboxes) {
-    if (checkbox.checked) {
-      newProduct.days.push(checkbox.value);
-    }
-  }
-  _API_rest_js__WEBPACK_IMPORTED_MODULE_0__.rest.post(newProduct);
-}
-
-async function deleteProduct(e) {
-  let productToDelete = '';
-  let modalDeleteBtn = document.querySelector('.modal__delete-button');
-
-  if (targetHasClass(e.target, 'product-card__delete-button')) {
-    let id = e.target.parentNode.id;
-    productToDelete = document.querySelectorAll(`[id="${id}"]`);
-  } else if (targetHasClass(e.target, 'header__reset-button')) {
-    productToDelete = document.querySelectorAll('.card');
-  }
-
-  if (productToDelete.length) {
-    modalDeleteBtn.addEventListener('click', () => {
-      removeFromDOMAndDatabase(productToDelete);
-      modal.style.display = 'none';
-      modalOverlay.style.display = 'none';
-    });
-  }
-}
-
-function removeFromDOMAndDatabase(list) {
-  list.forEach((item) => {
-    item.remove();
-    _API_rest_js__WEBPACK_IMPORTED_MODULE_0__.rest.delete(item.id);
-  });
-}
-
-})();
-
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module used 'module' so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__(0);
+/******/ 	
 /******/ })()
 ;
