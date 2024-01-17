@@ -1,41 +1,52 @@
 import { rest } from '../API/rest.js';
 import { handleForm, validateForm } from './components/form.js';
-import { showModal, hideModal, deleteProduct } from './components/modals.js';
+import {
+  showConfirmationModal,
+  hideAllModals,
+  deleteProduct,
+} from './components/modals.js';
 import '../public/styles.css';
 
 const body = document.querySelector('body');
-const form = document.querySelector('form');
-const calendar = document.querySelector('.calendar');
-const addBtn = document.querySelector('.header__add-button');
 
+//modals
 const modal = document.querySelector('.modal-confirmation');
 const modalOverlay = document.querySelector('.overlay');
 
-body.addEventListener('click', showModal);
-body.addEventListener('click', hideModal);
-form.addEventListener('click', validateForm);
+body.addEventListener('click', showConfirmationModal);
+body.addEventListener('click', hideAllModals);
 modal.addEventListener('click', deleteProduct);
-calendar.addEventListener('click', productDetails);
+
+// form
+const form = document.querySelector('form');
+form.addEventListener('click', validateForm);
+
+// calendar grid
+const calendar = document.querySelector('.calendar');
+const addBtn = document.querySelector('.header__add-button');
+
+calendar.addEventListener('click', displayProductDetails);
 addBtn.addEventListener('click', handleForm);
 
 const data = await rest.get();
 
 if (data) {
-  printProductCards(data);
+  renderProductCards(data);
 }
 
-function printProductCards(res) {
+function renderProductCards(data) {
   const calendarContainers = document.querySelectorAll('.calendar__container');
 
-  res.map((productFromDB) => {
+  data.map((productFromDB) => {
     productFromDB.days.map((weekdayFromDB) => {
       calendarContainers.forEach((calendarDay, index) => {
         if (weekdayFromDB === calendarDay.classList[1]) {
           const { name, type, _id } = productFromDB;
 
-          let card = `<button class="card" id="${_id}">
-         <p>${name}</p>
-         <p>${type}</p>
+          let card = `
+         <button class="card" id="${_id}">
+          <p>${name}</p>
+          <p>${type}</p>
          </button>`;
 
           calendarContainers[index].innerHTML += card;
@@ -45,7 +56,7 @@ function printProductCards(res) {
   });
 }
 
-function productDetails(e) {
+function displayProductDetails(e) {
   const id = e.target.id;
   localStorage.setItem('pId', id);
 

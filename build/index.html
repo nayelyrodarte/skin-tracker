@@ -3,31 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://use.fontawesome.com/ebe14d2102.js"
-      SameSite="None Secure"
-    ></script>
     <title>skintracker</title>
   </head>
 
   <body>
-    <div class="modal__overlay"></div>
-    <div class="modal">
-      <p>¿Estás seguro/a?</p>
-      <button type="button" class="modal__delete-button">
-        Eliminar productos
-      </button>
-      <button type="button" class="modal__cancel-button">Cancelar</button>
-    </div>
+    <div class="overlay"></div>
+    <div class="modal modal-product"></div>
+    <div class="modal modal-confirmation"></div>
     <header>
       <img src="./logo_img.svg" alt="facial-cream-logo" />
       <h1>skintracker</h1>
     </header>
 
-    <div class="header__buttons">
-      <button class="header__add-button">+ Agregar producto</button>
-      <button class="header__reset-button">Eliminar rutina</button>
-    </div>
+    <button class="header__add-button">+ Agregar producto</button>
 
     <section class="calendar">
       <div class="calendar__day-title">
@@ -61,9 +49,7 @@
     </section>
 
     <form>
-      <button class="form__close-button">
-        <i class="fa fa-times-circle"></i>
-      </button>
+      <button class="form__close-button">Close</button>
       <div class="alert"></div>
 
       <label for="product_name">Nombre del producto:</label>

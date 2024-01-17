@@ -5,7 +5,7 @@ const modalConfirmation = document.querySelector('.modal-confirmation');
 const modalProduct = document.querySelector('.modal-product');
 const modalOverlay = document.querySelector('.overlay');
 
-export function showModal(e) {
+export function showConfirmationModal(e) {
   if (targetHasClass(e.target, 'product-card__delete-button')) {
     modalProduct.classList.remove('active');
     modalConfirmation.classList.add('active');
@@ -20,7 +20,7 @@ export function showModal(e) {
   }
 }
 
-export function hideModal(e) {
+export function hideAllModals(e) {
   if (targetHasClass(e.target, 'modal__cancel-button')) {
     modalConfirmation.remove('active');
     modalProduct.classList.remove('active');
@@ -35,17 +35,15 @@ export async function deleteProduct(e) {
     let productToDelete = document.querySelectorAll(`[id="${id}"]`);
 
     if (productToDelete.length) {
-      removeFromDOMAndDatabase(productToDelete);
+      productToDelete.forEach((item) => {
+        item.remove();
+        rest.delete(item.id);
+      });
+
+      localStorage.removeItem('pId');
+
       modalConfirmation.classList.remove('active');
       modalOverlay.classList.remove('active');
     }
   }
-}
-
-function removeFromDOMAndDatabase(list) {
-  list.forEach((item) => {
-    item.remove();
-    rest.delete(item.id);
-  });
-  localStorage.removeItem('pId');
 }
